@@ -2,6 +2,7 @@ import { match } from 'assert'
 import React, { useEffect } from 'react'
 import { Link, Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import Nav from 'components/Nav'
 
 const Home = () => (
   <div>
@@ -37,18 +38,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-const Nav = styled.nav`
-  border: 1px solid black;
-  > ul {
-    display: flex;
-    > li {
-      line-height: 30px;
-      text-align: center;
-      width: 33.3333%;
-      padding: 10px;
-    }
-  }
-`
+
 const Main = styled.main`
   border: 1px solid green;
   flex: 1;
@@ -68,19 +58,7 @@ export default function App() {
           </Route>
         </Switch>
       </Main>
-      <Nav>
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="/tags">标签</Link>
-          </li>
-          <li>
-            <Link to="/money">记一笔</Link>
-          </li>
-          <li>
-            <Link to="/statistics">统计</Link>
-          </li>
-        </ul>
-      </Nav>
+      <Nav />
     </Wrapper>
   )
 }
