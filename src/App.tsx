@@ -1,6 +1,4 @@
-import { match } from 'assert'
-import React, { useEffect } from 'react'
-import { Link, Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Nav from 'components/Nav'
 
@@ -23,7 +21,6 @@ const Products = () => (
 )
 const NoMatch = () => {
   let location = useLocation()
-
   return (
     <div>
       <h3>

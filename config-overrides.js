@@ -1,20 +1,27 @@
-const { override, overrideDevServer, addLessLoader, addPostcssPlugins, fixBabelImports } = require('customize-cra')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const { override, addWebpackModuleRule } = require('customize-cra')
+
 // 打包配置
 const addCustomize = () => config => {
+  console.log('打印环境 :>> ', process.env.NODE_ENV)
   if (process.env.NODE_ENV === 'production') {
+    // 生产环境
     // 关闭sourceMap
     config.devtool = false
-    // 添加js打包gzip配置
-    config.plugins.push(
-      new CompressionWebpackPlugin({
-        test: /\.js$|\.css$/,
-        threshold: 1024
-      })
-    )
+  } else {
+    // 开发环境
   }
+
   return config
 }
 module.exports = {
-  webpack: override(addCustomize())
+  webpack: override(
+    addWebpackModuleRule({
+      test: /\.svg$/,
+      use: [
+        { loader: 'svg-sprite-loader', options: {} },
+        { loader: 'svgo-loader', options: {} }
+      ]
+    }),
+    addCustomize()
+  )
 }
