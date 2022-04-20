@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from './Icon'
-
+import 'helper.scss'
 const NavWrapper = styled.nav`
   border: 1px solid black;
   > ul {
@@ -9,10 +9,23 @@ const NavWrapper = styled.nav`
     > li {
       text-align: center;
       width: 33.3333%;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      a {
+        padding: 4px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+        .icon {
+          width: 24px;
+          height: 24px;
+        }
+        &.selected {
+          color: red;
+          .icon {
+            fill: red;
+          }
+        }
+      }
     }
   }
 `
@@ -21,16 +34,22 @@ export default function Nav() {
     <NavWrapper>
       <ul className="nav navbar-nav">
         <li>
-          <Icon name="tag" />
-          <Link to="/tags">标签</Link>
+          <NavLink to="/tags" activeClassName="selected">
+            <Icon name="tag" />
+            标签
+          </NavLink>
         </li>
         <li>
-          <Icon name="money" />
-          <Link to="/money">记一笔</Link>
+          <NavLink to="/money" activeClassName="selected">
+            <Icon name="money" />
+            记一笔
+          </NavLink>
         </li>
         <li>
-          <Icon name="chart" />
-          <Link to="/statistics">统计</Link>
+          <NavLink to="/statistics" activeClassName="selected">
+            <Icon name="chart" />
+            统计
+          </NavLink>
         </li>
       </ul>
     </NavWrapper>

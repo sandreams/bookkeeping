@@ -10,7 +10,7 @@ const addCustomize = () => config => {
   } else {
     // 开发环境
   }
-
+  // console.log('config :>> ', config.module)
   return config
 }
 module.exports = {
@@ -19,7 +19,12 @@ module.exports = {
       test: /\.svg$/,
       use: [
         { loader: 'svg-sprite-loader', options: {} },
-        { loader: 'svgo-loader', options: {} }
+        {
+          loader: 'svgo-loader',
+          options: {
+            plugins: [{ removeAttrs: { attrs: 'fill' } }]
+          }
+        }
       ]
     }),
     addCustomize()

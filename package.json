@@ -53,6 +53,6 @@
     "node-sass": "npm:dart-sass@1.25.0",
     "react-app-rewired": "^2.2.1",
     "svg-sprite-loader": "^6.0.11",
-    "svgo-loader": "^3.0.0"
+    "svgo-loader": "2.2.1"
   }
 }
