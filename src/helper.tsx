@@ -7,4 +7,8 @@ const svgColor = {
   active: '#F4A623', // 激活色
   light: '#999999' // 浅色
 }
-export { fontColor, svgColor }
+const bgColor = {
+  grey: ' #F5F5F5',
+  white: '#ffffff'
+}
+export { fontColor, svgColor, bgColor }

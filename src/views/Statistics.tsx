@@ -1,6 +1,6 @@
 import Layout from 'components/Layout'
 const Statistics = () => (
-  <Layout>
+  <Layout title="统计">
     <h1>统计页</h1>
   </Layout>
 )

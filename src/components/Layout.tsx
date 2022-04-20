@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Nav from 'components/Nav'
+import TopTitle from './TopTitle'
 const Wrapper = styled.div`
   border: 1px solid red;
   min-height: 100vh;
@@ -14,6 +15,7 @@ const Main = styled.main`
 const Layout = (props: any) => {
   return (
     <Wrapper>
+      <TopTitle title={props.title} />
       <Main>{props.children}</Main>
       <Nav />
     </Wrapper>
