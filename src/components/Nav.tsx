@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from './Icon'
-import 'helper.scss'
+import { fontColor, svgColor } from 'helper'
 const NavWrapper = styled.nav`
   border: 1px solid black;
   > ul {
@@ -20,9 +20,9 @@ const NavWrapper = styled.nav`
           height: 24px;
         }
         &.selected {
-          color: red;
+          color: ${fontColor.active};
           .icon {
-            fill: red;
+            fill: ${svgColor.active};
           }
         }
       }

@@ -27,6 +27,10 @@ module.exports = {
         }
       ]
     }),
+    addWebpackModuleRule({
+      test: /\.s[ac]ss$/i,
+      use: ['style-loader', 'css-loader', 'sass-loader']
+    }),
     addCustomize()
   )
 }
