@@ -1,32 +1,19 @@
 import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import Nav from 'components/Nav'
+import Tags from 'views/Tags'
+import Money from 'views/Money'
+import Statistics from 'views/Statistics'
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
-const Category = () => (
-  <div>
-    <h2>Category</h2>
-  </div>
-)
-
-const Products = () => (
-  <div>
-    <h2>Products</h2>
-  </div>
-)
 const NoMatch = () => {
   let location = useLocation()
   return (
-    <div>
-      <h3>
-        No match for <code>{location.pathname}</code>
-      </h3>
-    </div>
+    <Wrapper>
+      <Main>
+        <h3>
+          No match for <code>{location.pathname}</code>
+        </h3>
+      </Main>
+    </Wrapper>
   )
 }
 const Wrapper = styled.div`
@@ -42,20 +29,19 @@ const Main = styled.main`
 `
 export default function App() {
   return (
-    <Wrapper>
-      <Main>
-        <Switch>
-          <Route exact path="/tags" component={Home}></Route>
-          <Route path="/money">
-            <Category />
-          </Route>
-          <Route path="/statistics" component={Products}></Route>
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
-      </Main>
-      <Nav />
-    </Wrapper>
+    <Switch>
+      <Route exact path="/tags">
+        <Tags />
+      </Route>
+      <Route path="/money">
+        <Money />
+      </Route>
+      <Route path="/statistics">
+        <Statistics />
+      </Route>
+      <Route path="*">
+        <NoMatch />
+      </Route>
+    </Switch>
   )
 }
