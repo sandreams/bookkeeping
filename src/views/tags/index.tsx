@@ -1,13 +1,16 @@
 import styled from 'styled-components'
 import Layout from 'components/Layout'
-import { useState, useRef, forwardRef, useImperativeHandle } from 'react'
+import Icon from 'components/Icon'
+import { useState, useRef } from 'react'
+import Numpad from './components/Numpad'
+import NumInput from './components/NumInput'
 const CategorySection = styled.section`
+  background-color: #fff;
   ul {
     display: flex;
     > li {
       width: 50%;
       text-align: center;
-      border: 1px solid #999;
       padding: 5px 0;
       line-height: 30px;
       display: flex;
@@ -54,39 +57,40 @@ const CategorySection = styled.section`
 const InputSection = styled.section`
   height: 140px;
   display: flex;
-  align-items: center;
-  padding-left: 25px;
+  align-items: start;
+  padding-left: 35px;
 `
-const TagsSection = styled.section``
-const NotesSection = styled.section``
-const NumberPadSection = styled.section``
-const NumInputWrapper = styled.div`
-  /* border: 1px solid black; */
-  font-size: 50px;
-  border-bottom: 1px solid black;
-  padding: 10px 0;
+const TagsSection = styled.section`
+  background-color: #fff;
+  flex: 1;
 `
-const NumInput = forwardRef((props, parentRef) => {
-  const inputRef = useRef(null)
-  useImperativeHandle(parentRef, () => {
-    return {
-      num() {
-        return (inputRef.current as any).value
-      }
+const NotesSection = styled.section`
+  background-color: #fff;
+  padding: 18px 0 18px 35px;
+  .note-editor {
+    display: flex;
+    .icon {
+      width: 18px;
+      height: 18px;
+      fill: #aaaaaa;
     }
-  })
-  return (
-    <NumInputWrapper>
-      <input type="number" ref={inputRef} />
-    </NumInputWrapper>
-  )
-})
+    input {
+      font-size: 14px;
+      padding-left: 10px;
+      color: #aaaaaa;
+    }
+  }
+`
+const NumberPadSection = styled.section`
+  background-color: #fff;
+`
+
 const Tags = () => {
   const parentRef = useRef(null)
   const [type, setType] = useState('expend')
   const tabConfig = [
     { key: 'expend', name: '支出' },
-    { key: 'income', name: '收入' }
+    { key: 'income', name: '收入' },
   ]
   const getInputNum = () => {
     // 获取 input 的实时输入值
@@ -98,7 +102,11 @@ const Tags = () => {
       <CategorySection>
         <ul>
           {tabConfig.map((t, index) => (
-            <li key={index} className={t.key === type ? 'active' : ''} onClick={() => setType(t.key)}>
+            <li
+              key={index}
+              className={t.key === type ? 'active' : ''}
+              onClick={() => setType(t.key)}
+            >
               {t.name}
             </li>
           ))}
@@ -109,8 +117,15 @@ const Tags = () => {
         <NumInput ref={parentRef} />
       </InputSection>
       <TagsSection />
-      <NotesSection />
-      <NumberPadSection />
+      <NotesSection>
+        <div className="note-editor">
+          <Icon name="editor" />
+          <input type="text" placeholder="在这里添加注释" />
+        </div>
+      </NotesSection>
+      <NumberPadSection>
+        <Numpad />
+      </NumberPadSection>
     </Layout>
   )
 }

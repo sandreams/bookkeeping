@@ -1,6 +1,6 @@
-import { Route, Switch, useLocation } from 'react-router-dom'
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import Tags from 'views/Tags'
+import Tags from 'views/tags'
 import Money from 'views/Money'
 import Statistics from 'views/Statistics'
 
@@ -30,13 +30,16 @@ const Main = styled.main`
 export default function App() {
   return (
     <Switch>
+      <Route exact path="/">
+        <Redirect to="/tags" />
+      </Route>
       <Route exact path="/tags">
         <Tags />
       </Route>
-      <Route path="/money">
+      <Route exact path="/money">
         <Money />
       </Route>
-      <Route path="/statistics">
+      <Route exact path="/statistics">
         <Statistics />
       </Route>
       <Route path="*">

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Icon from './Icon'
 import { fontColor, svgColor } from 'helper'
 const NavWrapper = styled.nav`
-  border: 1px solid black;
+  background-color: #fff;
   > ul {
     display: flex;
     > li {
