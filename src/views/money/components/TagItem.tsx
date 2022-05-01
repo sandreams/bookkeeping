@@ -44,6 +44,7 @@ const TagItem = (prop: PropType) => {
       <div
         className={`icon-container ${prop.isActive ? ' icon-active' : ''}`}
         onClick={prop.onTagChange}
+        data-name={prop.tagName}
       >
         <Icon name={prop.iconName} />
       </div>

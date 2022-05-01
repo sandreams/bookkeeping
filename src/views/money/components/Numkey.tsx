@@ -3,12 +3,24 @@ const NumkeyWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover {
+  /* &:hover {
     color: #fff;
     background: #ffdc00;
-  }
+  } */
 `
-const Numkey = ({ children, cls }: { children: any; cls: string }) => {
-  return <NumkeyWrapper className={cls}>{children}</NumkeyWrapper>
+const Numkey = ({
+  children,
+  cls,
+  dataKey,
+}: {
+  children: React.ReactChild | string
+  cls: string
+  dataKey: string
+}) => {
+  return (
+    <NumkeyWrapper className={cls} data-key={dataKey}>
+      {children}
+    </NumkeyWrapper>
+  )
 }
 export default Numkey

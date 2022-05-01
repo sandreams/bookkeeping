@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Icon from 'components/Icon'
-import { useRef, useState } from 'react'
+import { useRef, useState, memo } from 'react'
 const Wrapper = styled.section`
   background-color: #fff;
   padding: 18px 0 18px 35px;
@@ -26,6 +26,7 @@ const NotesSection = () => {
       setNote(refInput.current.value)
     }
   }
+  console.log('Note 组件渲染了')
   return (
     <Wrapper>
       <div className="note-editor">
@@ -41,4 +42,4 @@ const NotesSection = () => {
     </Wrapper>
   )
 }
-export default NotesSection
+export default memo(NotesSection)

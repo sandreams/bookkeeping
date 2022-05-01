@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import styled from 'styled-components'
 import TagItem from './components/TagItem'
 const Wrapper = styled.section`
@@ -55,7 +55,7 @@ const TagsSection: React.FC = () => {
   const [activeIndex, setIndex] = useState(0)
   const [tags, setTags] = useState<TagData[]>(tagList)
   const onTagChange = (index: number) => setIndex(index)
-  console.log('tagSection 组件 render 了')
+  console.log('tags 组件渲染了')
   return (
     <Wrapper>
       {tags.map((t, index) => (
@@ -70,4 +70,4 @@ const TagsSection: React.FC = () => {
     </Wrapper>
   )
 }
-export default TagsSection
+export default memo(TagsSection)

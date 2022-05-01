@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 const Wrapper = styled.section`
   background-color: #fff;
   ul {
@@ -59,6 +59,7 @@ const CategorySection: React.FC = () => {
     { key: 'expend', name: '支出' },
     { key: 'income', name: '收入' },
   ]
+  console.log('Category 组件渲染了')
   return (
     <Wrapper>
       <ul>
@@ -76,4 +77,4 @@ const CategorySection: React.FC = () => {
     </Wrapper>
   )
 }
-export default CategorySection
+export default memo(CategorySection)
