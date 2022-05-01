@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-const CategorySection = styled.section`
+import { useState } from 'react'
+const Wrapper = styled.section`
   background-color: #fff;
   ul {
     display: flex;
@@ -52,5 +53,27 @@ const CategorySection = styled.section`
     }
   }
 `
-
+const CategorySection: React.FC = () => {
+  const [type, setType] = useState('expend')
+  const tabConfig = [
+    { key: 'expend', name: '支出' },
+    { key: 'income', name: '收入' },
+  ]
+  return (
+    <Wrapper>
+      <ul>
+        {tabConfig.map((t, index) => (
+          <li
+            key={index}
+            className={t.key === type ? 'active' : ''}
+            onClick={() => setType(t.key)}
+          >
+            {t.name}
+          </li>
+        ))}
+      </ul>
+      {/* <button onClick={getInputNum}>获取input的值</button> */}
+    </Wrapper>
+  )
+}
 export default CategorySection

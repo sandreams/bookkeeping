@@ -35,15 +35,15 @@ interface PropType {
   iconName: string
   tagName: string
   isActive: boolean
-  onTagChange: (index: number) => void
+  onTagChange: () => void
 }
 const TagItem = (prop: PropType) => {
-  console.log('tag 组件 render 了')
+  console.log('tagItem 组件 render 了')
   return (
     <TagItemWrapper>
       <div
         className={`icon-container ${prop.isActive ? ' icon-active' : ''}`}
-        onClick={() => prop.onTagChange}
+        onClick={prop.onTagChange}
       >
         <Icon name={prop.iconName} />
       </div>

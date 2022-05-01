@@ -1,7 +1,7 @@
 import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import Tags from 'views/tags'
-import Money from 'views/Money'
+import Tags from 'views/Tags'
+import Money from 'views/money/index'
 import Statistics from 'views/Statistics'
 
 const NoMatch = () => {
@@ -31,7 +31,7 @@ export default function App() {
   return (
     <Switch>
       <Route exact path="/">
-        <Redirect to="/tags" />
+        <Redirect to="/money" />
       </Route>
       <Route exact path="/tags">
         <Tags />
