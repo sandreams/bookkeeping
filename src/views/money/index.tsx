@@ -1,5 +1,4 @@
 import Layout from 'components/Layout'
-import Icon from 'components/Icon'
 import { useRef } from 'react'
 import Numpad from './components/Numpad'
 import NumInput from './components/NumInput'

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Icon from 'components/Icon'
+import { useRef, useState } from 'react'
 const Wrapper = styled.section`
   background-color: #fff;
   padding: 18px 0 18px 35px;
@@ -18,11 +19,24 @@ const Wrapper = styled.section`
   }
 `
 const NotesSection = () => {
+  const [note, setNote] = useState('')
+  const refInput = useRef<HTMLInputElement>(null)
+  const onBlur = () => {
+    if (refInput.current) {
+      setNote(refInput.current.value)
+    }
+  }
   return (
     <Wrapper>
       <div className="note-editor">
         <Icon name="editor" />
-        <input type="text" placeholder="在这里添加注释" />
+        <input
+          ref={refInput}
+          type="text"
+          placeholder="在这里添加注释"
+          defaultValue={note}
+          onBlur={onBlur}
+        />
       </div>
     </Wrapper>
   )
