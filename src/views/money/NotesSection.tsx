@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-const NotesSection = styled.section`
+import Icon from 'components/Icon'
+const Wrapper = styled.section`
   background-color: #fff;
   padding: 18px 0 18px 35px;
   .note-editor {
@@ -16,4 +17,14 @@ const NotesSection = styled.section`
     }
   }
 `
+const NotesSection = () => {
+  return (
+    <Wrapper>
+      <div className="note-editor">
+        <Icon name="editor" />
+        <input type="text" placeholder="在这里添加注释" />
+      </div>
+    </Wrapper>
+  )
+}
 export default NotesSection

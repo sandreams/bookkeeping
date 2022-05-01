@@ -23,12 +23,7 @@ const Tags = () => {
         <NumInput ref={parentRef} />
       </InputSection>
       <TagsSection />
-      <NotesSection>
-        <div className="note-editor">
-          <Icon name="editor" />
-          <input type="text" placeholder="在这里添加注释" />
-        </div>
-      </NotesSection>
+      <NotesSection />
       <NumberPadSection>
         <Numpad />
       </NumberPadSection>
