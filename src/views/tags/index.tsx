@@ -1,93 +1,56 @@
-import styled from 'styled-components'
 import Layout from 'components/Layout'
 import Icon from 'components/Icon'
 import { useState, useRef } from 'react'
 import Numpad from './components/Numpad'
 import NumInput from './components/NumInput'
-const CategorySection = styled.section`
-  background-color: #fff;
-  ul {
-    display: flex;
-    > li {
-      width: 50%;
-      text-align: center;
-      padding: 5px 0;
-      line-height: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      font-size: 14px;
-      &:hover {
-        cursor: pointer;
-      }
-      &.active {
-        color: #f4a623;
-        &::after {
-          opacity: 1;
-        }
-      }
-      &::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 5px solid #f4a623;
-        bottom: 0px;
-        opacity: 0;
-        transition: opacity 0.5s ease-out;
-        /* animation: 0.4s linear slidein; */
-      }
-    }
-  }
-  @keyframes slidein {
-    from {
-      transform: translateX(-400px);
-    }
-    50% {
-      transform: translateX(-200px);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-`
-const InputSection = styled.section`
-  height: 140px;
-  display: flex;
-  align-items: start;
-  padding-left: 35px;
-`
-const TagsSection = styled.section`
-  background-color: #fff;
-  flex: 1;
-`
-const NotesSection = styled.section`
-  background-color: #fff;
-  padding: 18px 0 18px 35px;
-  .note-editor {
-    display: flex;
-    .icon {
-      width: 18px;
-      height: 18px;
-      fill: #aaaaaa;
-    }
-    input {
-      font-size: 14px;
-      padding-left: 10px;
-      color: #aaaaaa;
-    }
-  }
-`
-const NumberPadSection = styled.section`
-  background-color: #fff;
-`
+import TagItem from './components/TagItem'
+import CategorySection from './CategorySection'
+import InputSection from './InputSection'
+import TagsSection from './TagsSection'
+import NotesSection from './NotesSection'
+import NumberPadSection from './NumberPadSection'
 
+const tagList = [
+  {
+    tagName: '餐饮',
+    isActive: false,
+    iconName: '餐饮',
+  },
+  {
+    tagName: '购物',
+    isActive: false,
+    iconName: '购物',
+  },
+  {
+    tagName: '交通',
+    isActive: false,
+    iconName: '交通',
+  },
+  {
+    tagName: '水电费',
+    isActive: false,
+    iconName: '水电',
+  },
+  {
+    tagName: '外卖',
+    isActive: false,
+    iconName: '外卖',
+  },
+  {
+    tagName: '租赁',
+    isActive: false,
+    iconName: '租赁',
+  },
+  {
+    tagName: '娱乐',
+    isActive: false,
+    iconName: '娱乐',
+  },
+]
 const Tags = () => {
   const parentRef = useRef(null)
   const [type, setType] = useState('expend')
+  const [activeIndex, setIndex] = useState(0)
   const tabConfig = [
     { key: 'expend', name: '支出' },
     { key: 'income', name: '收入' },
@@ -116,7 +79,17 @@ const Tags = () => {
       <InputSection>
         <NumInput ref={parentRef} />
       </InputSection>
-      <TagsSection />
+      <TagsSection>
+        {tagList.map((t, index) => (
+          <TagItem
+            key={index}
+            isActive={activeIndex === index}
+            tagName={t.tagName}
+            iconName={t.iconName}
+            onTagChange={(index) => setIndex(index)}
+          />
+        ))}
+      </TagsSection>
       <NotesSection>
         <div className="note-editor">
           <Icon name="editor" />
