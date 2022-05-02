@@ -1,7 +1,7 @@
 import { useState, memo } from 'react'
 import styled from 'styled-components'
 import TagItem from './components/TagItem'
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   padding: 10px 25px;
   background-color: #fff;
   flex: 1;

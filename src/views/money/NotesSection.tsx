@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Icon from 'components/Icon'
 import { useRef, useState, memo } from 'react'
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   background-color: #fff;
   padding: 18px 0 18px 35px;
   .note-editor {
