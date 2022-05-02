@@ -6,8 +6,9 @@ import TagsSection from './TagsSection'
 import NotesSection from './NotesSection'
 import NumberPadSection from './NumberPadSection'
 
-const Tags = () => {
-  const [num, setNum] = useState('0.00')
+const Money = () => {
+  const [numText, setNumText] = useState('0.00')
+  const [calText, setCalText] = useState('')
   const parentRef = useRef(null)
   const getInputNum = () => {
     // 获取 input 的实时输入值
@@ -18,11 +19,15 @@ const Tags = () => {
   return (
     <Layout title="记一笔">
       <CategorySection />
-      <OutputSection output={num} />
+      <OutputSection output={numText} calText={calText} />
       <TagsSection />
       <NotesSection />
-      <NumberPadSection setNum={setNum} />
+      <NumberPadSection
+        setNumText={setNumText}
+        setCalText={setCalText}
+        output={numText}
+      />
     </Layout>
   )
 }
-export default Tags
+export default Money

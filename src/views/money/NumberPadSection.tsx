@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import styled from 'styled-components'
 import Numkey from './components/Numkey'
 import { fontColor } from 'helper'
@@ -21,6 +21,8 @@ const Wrapper = styled.section`
     color: #fff;
     background: linear-gradient(130deg, #ff9a40 16%, #ffbd3b 88%);
     border-radius: 3px;
+    padding: 0 20px;
+    text-align: center;
   }
   .icon {
     fill: ${fontColor.normal};
@@ -28,14 +30,27 @@ const Wrapper = styled.section`
     height: 24px;
   }
 `
-const NumberPadSection = ({ setNum }: { setNum: React.Dispatch<string> }) => {
+const NumberPadSection = ({
+  setNumText,
+  setCalText,
+  output,
+}: {
+  setNumText: React.Dispatch<string>
+  setCalText: React.Dispatch<string>
+  output: string
+}) => {
   console.log('NumberPad 组件渲染了')
+  const [left, setLeft] = useState('')
+  const [right, setRight] = useState('')
+  const [mode, setMode] = useState('')
+  const concatCalText = () => {}
   const onClickNum = (e: React.MouseEvent) => {
     const dataset = (e.target as HTMLDivElement).dataset
     if (!dataset || !dataset['key']) {
       return
     }
     const text = dataset['key']
+    console.log('text', text)
     switch (text) {
       case '0':
       case '1':
@@ -47,9 +62,12 @@ const NumberPadSection = ({ setNum }: { setNum: React.Dispatch<string> }) => {
       case '7':
       case '8':
       case '9':
-        setNum(text)
-        break
-
+        if (text === '0.00') break
+      case '.':
+      case '-':
+      case '+':
+      case 'backspace':
+      case 'save':
       default:
         break
     }
@@ -98,9 +116,15 @@ const NumberPadSection = ({ setNum }: { setNum: React.Dispatch<string> }) => {
       <Numkey cls="a-area" dataKey="+">
         {'+'}
       </Numkey>
-      <Numkey cls="b-area" dataKey="save">
-        {'保存'}
-      </Numkey>
+      {['plus', 'minus'].indexOf(mode) >= 0 ? (
+        <Numkey cls="b-area" dataKey="save">
+          {'保存'}
+        </Numkey>
+      ) : (
+        <Numkey cls="b-area" dataKey="=">
+          {'='}
+        </Numkey>
+      )}
     </Wrapper>
   )
 }
