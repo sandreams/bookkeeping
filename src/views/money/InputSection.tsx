@@ -61,19 +61,69 @@ const NumberPadSection = styled.div`
   }
 `
 const InputSection = (props: any) => {
-  const [numText, setNumText] = useState('0.00')
+  const [numText, setNumText] = useState('0')
   const [calText, setCalText] = useState('')
   const [left, setLeft] = useState('')
   const [right, setRight] = useState('')
   const [mode, setMode] = useState('')
+  const setOutput = (output: string) => {
+    if (output.length > 10) {
+      output = output.slice(0, 10)
+    } else if (output.length === 0) {
+      output = '0'
+    } else if (output.indexOf('.') >= 0 && output.split('.')[1].length > 2) {
+      return
+    }
+    setNumText(output)
+  }
+  const onClickNum = (e: React.MouseEvent) => {
+    const dataset = (e.target as HTMLDivElement).dataset
+    if (!dataset || !dataset['key']) {
+      return
+    }
+    const text = dataset['key']
+    console.log('text', text)
+    switch (text) {
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        if (numText === '0') {
+          setOutput(text)
+        } else {
+          setOutput(numText + text)
+        }
+        break
+      case '.':
+        if (numText.indexOf('.') >= 0) {
+          return
+        }
+        setOutput(numText + '.')
+        break
+      case '-':
+      case '+':
+      case 'backspace':
+        setOutput(numText.slice(0, -1))
+        break
+      case 'save':
+      default:
+        break
+    }
+  }
   return (
     <Wrapper>
       <OutputSection>
-        <div className="output-num">12321</div>
+        <div className="output-num">{numText}</div>
         <div className="output-cal">23423</div>
       </OutputSection>
       <div className="section-slot">{props.children}</div>
-      <NumberPadSection>
+      <NumberPadSection onClick={onClickNum}>
         <Numkey cls="a-area" dataKey="7">
           {'7'}
         </Numkey>
@@ -118,11 +168,11 @@ const InputSection = (props: any) => {
         </Numkey>
         {['plus', 'minus'].indexOf(mode) >= 0 ? (
           <Numkey cls="b-area" dataKey="save">
-            {'保存'}
+            {'='}
           </Numkey>
         ) : (
           <Numkey cls="b-area" dataKey="=">
-            {'='}
+            {'保存'}
           </Numkey>
         )}
       </NumberPadSection>
