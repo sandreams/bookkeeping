@@ -1,6 +1,6 @@
 import { useRef, forwardRef, useImperativeHandle } from 'react'
 import styled from 'styled-components'
-import { fontColor, borderColor } from 'helper'
+import { fontColor, borderColor } from 'src/helper'
 const NumInputWrapper = styled.div`
   width: 100%;
   input {

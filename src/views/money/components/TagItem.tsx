@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import Icon from 'components/Icon'
-import { bgColor, svgColor, fontColor } from 'helper'
+import Icon from 'src/components/Icon'
+import { bgColor, svgColor, fontColor } from 'src/helper'
+import { TagItemProps } from 'types/money'
 const TagItemWrapper = styled.div`
   width: 65px;
   height: 66px;
@@ -31,24 +32,18 @@ const TagItemWrapper = styled.div`
     color: ${svgColor.normal};
   }
 `
-interface PropType {
-  iconName: string
-  tagName: string
-  isActive: boolean
-  onTagChange: () => void
-}
-const TagItem = (prop: PropType) => {
+const TagItem: React.FC<TagItemProps> = (props) => {
   console.log('tagItem 组件 render 了')
   return (
     <TagItemWrapper>
       <div
-        className={`icon-container ${prop.isActive ? ' icon-active' : ''}`}
-        onClick={prop.onTagChange}
-        data-name={prop.tagName}
+        className={`icon-container ${props.isActive ? ' icon-active' : ''}`}
+        onClick={props.onTagChange}
+        data-name={props.tagName}
       >
-        <Icon name={prop.iconName} />
+        <Icon name={props.iconName} />
       </div>
-      <div className="tag-name">{prop.tagName}</div>
+      <div className="tag-name">{props.tagName}</div>
     </TagItemWrapper>
   )
 }

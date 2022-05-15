@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import Nav from 'components/Nav'
+import Nav from 'src/components/Nav'
 import TopTitle from './TopTitle'
-import { bgColor } from 'helper'
+import { bgColor } from 'src/helper'
 const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;

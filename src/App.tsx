@@ -1,8 +1,8 @@
 import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import Tags from 'views/Tags'
-import Money from 'views/money/index'
-import Statistics from 'views/Statistics'
+import Tags from 'src/views/Tags'
+import Money from 'src/views/money/index'
+import Statistics from 'src/views/Statistics'
 
 const NoMatch = () => {
   let location = useLocation()

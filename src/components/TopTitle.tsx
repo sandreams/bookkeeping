@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { bgColor } from 'helper'
+import { bgColor } from 'src/helper'
 const TopTitleWrapper = styled.header`
   background: ${bgColor.grey};
   height: 40px;

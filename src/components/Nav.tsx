@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from './Icon'
-import { fontColor, svgColor } from 'helper'
+import { fontColor, svgColor } from 'src/helper'
 const NavWrapper = styled.nav`
   background-color: #fff;
   > ul {

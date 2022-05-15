@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { fontColor, borderColor } from 'helper'
+import { fontColor, borderColor } from 'src/helper'
 export const Wrapper = styled.section`
   flex: 1;
   display: flex;

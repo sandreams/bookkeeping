@@ -1,4 +1,4 @@
-import Layout from 'components/Layout'
+import Layout from 'src/components/Layout'
 const Money = () => (
   <Layout title="记一笔">
     <h1>标签页</h1>
