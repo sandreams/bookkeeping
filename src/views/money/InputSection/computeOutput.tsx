@@ -45,7 +45,7 @@ export const computeOutput = (
     case '7':
     case '8':
     case '9':
-      if (calText.endsWith('0')) {
+      if (calText.endsWith('0') && !/.(?:0+)$/.test(calText)) {
         preCal = calText.slice(0, -1)
       }
       Object.assign(output, { calOutput: preCal + text })
