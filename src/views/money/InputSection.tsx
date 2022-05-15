@@ -17,20 +17,21 @@ const OutputSection = styled.div`
   height: 140px;
   display: flex;
   align-items: start;
-  padding-left: 35px;
+  padding: 30px 0 30px 35px;
   flex-wrap: wrap;
-  .output-num {
+
+  .output-container {
     width: 100%;
-    font-size: 48px;
-    padding: 25px 0 0 0;
-    color: ${fontColor.num};
-  }
-  .output-cal {
-    width: 100%;
-    font-size: 20px;
-    padding: 25px 0 0 0;
+    height: 100%;
     border-bottom: 2px solid ${borderColor.green};
-    color: ${fontColor.normal};
+    .output-num {
+      font-size: 48px;
+      color: ${fontColor.num};
+    }
+    .output-cal {
+      font-size: 14px;
+      color: ${fontColor.light};
+    }
   }
 `
 const NumberPadSection = styled.div`
@@ -60,13 +61,36 @@ const NumberPadSection = styled.div`
     height: 24px;
   }
 `
+const matchDigit = (str: string): string[] => {
+  return str.replace(/\s+/g, '').split(/\+|-/)
+}
+const matchOperator = (str: string): string[] => {
+  return str.replace(/(\s|\d|\.)+/g, '').split('')
+}
+const sumStr = (str: string) => {
+  const digitArray = matchDigit(str)
+  const operatorArray = matchOperator(str)
+  return operatorArray.reduce((pre, cur, index) => {
+    return cur === '+'
+      ? pre + Number(digitArray[index + 1])
+      : pre - Number(digitArray[index + 1])
+  }, Number(digitArray[0]))
+}
+/**
+ * @description: 123+321-54  --> 123+321;  123 --> '' ; 123+ --> '123' ; '' --> ''
+ * @param str
+ * @return {*}
+ */
+const delCalText = (str: string) => {
+  return str.replace(new RegExp(/[-|+]?(?:[\d|.]+)?$/, 'g'), '')
+}
 const InputSection = (props: any) => {
   const [numText, setNumText] = useState('0')
   const [calText, setCalText] = useState('')
-  const [left, setLeft] = useState('')
-  const [right, setRight] = useState('')
-  const [mode, setMode] = useState('')
-  const setOutput = (output: string) => {
+  const [editMode, setMode] = useState(false)
+  console.log('Input 组件 render 了')
+  const setOutput = (output: string, text?: string) => {
+    output = text ? numText + text : output
     if (output.length > 10) {
       output = output.slice(0, 10)
     } else if (output.length === 0) {
@@ -82,6 +106,7 @@ const InputSection = (props: any) => {
       return
     }
     const text = dataset['key']
+    let preCal = calText
     console.log('text', text)
     switch (text) {
       case '0':
@@ -94,22 +119,61 @@ const InputSection = (props: any) => {
       case '7':
       case '8':
       case '9':
-        if (numText === '0') {
-          setOutput(text)
+        if (calText.endsWith('0')) {
+          preCal = calText.slice(0, -1)
+        }
+        setCalText(preCal + text)
+        if (!editMode) {
+          setOutput(numText === '0' ? text : numText + text)
         } else {
-          setOutput(numText + text)
+          setOutput(sumStr(preCal + text).toString())
         }
         break
       case '.':
-        if (numText.indexOf('.') >= 0) {
+        if (numText.indexOf('.') < 0 && !editMode) {
+          setOutput(numText + text)
+        }
+        if (calText.endsWith('.')) {
+          preCal = calText.slice(0, -1)
+        } else if (/[+|-]$/.test(calText)) {
+          preCal = preCal + '0'
+        }
+        const lastNumInput = /[+|-](?:[\d|.]+)$/g.exec(preCal)
+        if (
+          lastNumInput &&
+          lastNumInput[0] &&
+          lastNumInput[0].indexOf('.') >= 0
+        ) {
           return
         }
-        setOutput(numText + '.')
+        setCalText((preCal || '0') + text)
         break
       case '-':
       case '+':
+        if (/[+|-]$/.test(calText)) {
+          preCal = calText.slice(0, -1)
+        }
+        setCalText((preCal || '0') + text)
+        setMode(true)
+        break
       case 'backspace':
-        setOutput(numText.slice(0, -1))
+        if (!editMode) {
+          setOutput(numText.slice(0, -1))
+        } else {
+          const delCal = delCalText(calText)
+          if (!delCal) {
+            setMode(false)
+          } else {
+            setOutput(sumStr(delCal).toString())
+          }
+          setCalText(delCal)
+        }
+        break
+      case '=':
+        const calValue = sumStr(calText).toString()
+        setOutput(calValue)
+        setCalText(calValue)
+        setMode(false)
         break
       case 'save':
       default:
@@ -119,8 +183,14 @@ const InputSection = (props: any) => {
   return (
     <Wrapper>
       <OutputSection>
-        <div className="output-num">{numText}</div>
-        <div className="output-cal">23423</div>
+        <div className="output-container">
+          <div className="output-num">{numText}</div>
+          {editMode ? (
+            <div className="output-cal">{calText}</div>
+          ) : (
+            <div className="output-cal"></div>
+          )}
+        </div>
       </OutputSection>
       <div className="section-slot">{props.children}</div>
       <NumberPadSection onClick={onClickNum}>
@@ -166,12 +236,12 @@ const InputSection = (props: any) => {
         <Numkey cls="a-area" dataKey="+">
           {'+'}
         </Numkey>
-        {['plus', 'minus'].indexOf(mode) >= 0 ? (
-          <Numkey cls="b-area" dataKey="save">
+        {editMode ? (
+          <Numkey cls="b-area" dataKey="=">
             {'='}
           </Numkey>
         ) : (
-          <Numkey cls="b-area" dataKey="=">
+          <Numkey cls="b-area" dataKey="save">
             {'保存'}
           </Numkey>
         )}
