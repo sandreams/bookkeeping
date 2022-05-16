@@ -2,6 +2,7 @@ import { memo } from 'react'
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { fontColor, svgColor, bgColor } from 'src/helper'
+import { useTags } from 'src/useTags'
 const Wrapper = styled.section`
   background: ${bgColor.white};
   margin-top: 5px;
@@ -45,55 +46,13 @@ const Wrapper = styled.section`
     }
   }
 `
-const tagList = [
-  {
-    id: 1,
-    tagName: '餐饮',
-    isActive: false,
-    iconName: '餐饮',
-  },
-  {
-    id: 2,
-    tagName: '购物',
-    isActive: false,
-    iconName: '购物',
-  },
-  {
-    id: 3,
-    tagName: '交通',
-    isActive: false,
-    iconName: '交通',
-  },
-  {
-    id: 4,
-    tagName: '水电费',
-    isActive: false,
-    iconName: '水电',
-  },
-  {
-    id: 5,
-    tagName: '外卖',
-    isActive: false,
-    iconName: '外卖',
-  },
-  {
-    id: 6,
-    tagName: '租赁',
-    isActive: false,
-    iconName: '租赁',
-  },
-  {
-    id: 7,
-    tagName: '娱乐',
-    isActive: false,
-    iconName: '娱乐',
-  },
-]
+
 const TagListSection: React.FC = () => {
+  const { tags } = useTags()
   return (
     <Wrapper>
       <ul>
-        {tagList.map((tag) => (
+        {tags.map((tag) => (
           <li key={tag.id}>
             <Icon
               name="round_check"
