@@ -1,6 +1,6 @@
 import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import Tags from 'src/views/Tags'
+import Tags from 'src/views/tags'
 import Money from 'src/views/money/index'
 import Statistics from 'src/views/Statistics'
 
