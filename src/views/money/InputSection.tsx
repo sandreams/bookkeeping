@@ -31,6 +31,10 @@ const InputSection: React.FC<InputProps> = (props) => {
     }
     const text = dataset['key']
     console.log('text', text)
+    if (text === 'save') {
+      props.onConfirm()
+      return
+    }
     const output = computeOutput(text, numText, calText, editMode)
     for (const stateName in output) {
       if (stateName === 'numOutput') {

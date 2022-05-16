@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { memo } from 'react'
-import { CategoryProps, CategoryData } from 'types/money/index'
+import { CategoryProps, CategoryData } from 'types/money'
 const Wrapper = styled.section`
   background-color: #fff;
   ul {

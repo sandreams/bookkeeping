@@ -13,6 +13,15 @@ const Money = () => {
     note: '',
     amount: '0',
   })
+  const onChange = (obj: Partial<MoneyDataSet>) => {
+    setDataSet({
+      ...dataset,
+      ...obj,
+    })
+  }
+  const onConfirm = () => {
+    console.log('用户点击了确认')
+  }
   const parentRef = useRef(null)
   const getInputNum = () => {
     // 获取 input 的实时输入值
@@ -24,39 +33,20 @@ const Money = () => {
     <Layout title="记一笔">
       <CategorySection
         cate={dataset.category}
-        onChange={(cate: CategoryData) =>
-          setDataSet({
-            ...dataset,
-            category: cate,
-          })
-        }
+        onChange={(cate: CategoryData) => onChange({ category: cate })}
       />
       <InputSection
         numText={dataset.amount}
-        onChange={(amount: string) =>
-          setDataSet({
-            ...dataset,
-            amount,
-          })
-        }
+        onChange={(amount: string) => onChange({ amount })}
+        onConfirm={onConfirm}
       >
         <TagsSection
           selected={dataset.tag}
-          onChange={(tag: TagData) =>
-            setDataSet({
-              ...dataset,
-              tag,
-            })
-          }
+          onChange={(tag: TagData) => onChange({ tag })}
         />
         <NotesSection
           note={dataset.note}
-          onChange={(note: string) =>
-            setDataSet({
-              ...dataset,
-              note,
-            })
-          }
+          onChange={(note: string) => onChange({ note })}
         />
       </InputSection>
     </Layout>

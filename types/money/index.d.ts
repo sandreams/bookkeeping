@@ -41,6 +41,7 @@ interface InputProps {
   numText: string
   children: Array<ReactChild>
   onChange: (amount: string) => void
+  onConfirm: () => void
 }
 export {
   TagItem,

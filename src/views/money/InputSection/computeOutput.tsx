@@ -107,7 +107,6 @@ export const computeOutput = (
         modeOutput: false,
       })
       break
-    case 'save':
     default:
       break
   }

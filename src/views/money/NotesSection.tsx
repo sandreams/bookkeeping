@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { useRef, memo } from 'react'
-import { NoteProps } from 'types/money/index'
+import { NoteProps } from 'types/money'
 const Wrapper = styled.div`
   background-color: #fff;
   padding: 18px 0 18px 35px;
