@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Tags from 'src/views/tags'
 import Money from 'src/views/money/index'
 import Statistics from 'src/views/Statistics'
+import Tag from 'src/views/tag'
 
 const NoMatch = () => {
   let location = useLocation()
@@ -41,6 +42,9 @@ export default function App() {
       </Route>
       <Route exact path="/statistics">
         <Statistics />
+      </Route>
+      <Route path="/tag/:id">
+        <Tag />
       </Route>
       <Route path="*">
         <NoMatch />

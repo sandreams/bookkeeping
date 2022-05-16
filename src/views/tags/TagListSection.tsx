@@ -1,8 +1,10 @@
 import { memo } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { fontColor, svgColor, bgColor } from 'src/helper'
 import { useTags } from 'src/useTags'
+
 const Wrapper = styled.section`
   background: ${bgColor.white};
   margin-top: 5px;
@@ -61,7 +63,9 @@ const TagListSection: React.FC = () => {
             <div className="tag-item">
               <Icon name={tag.iconName} iconClass="icon-item" />
               <span>{tag.tagName}</span>
-              <Icon name="icon_config" iconClass="icon-config" />
+              <Link to={`tag/${tag.id}`}>
+                <Icon name="icon_config" iconClass="icon-config" />
+              </Link>
             </div>
           </li>
         ))}
