@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { useState, memo } from 'react'
+import { memo } from 'react'
+import { CategoryProps, CategoryData } from 'types/money/index'
 const Wrapper = styled.section`
   background-color: #fff;
   ul {
@@ -53,8 +54,7 @@ const Wrapper = styled.section`
     }
   }
 `
-const CategorySection: React.FC = () => {
-  const [type, setType] = useState('expend')
+const CategorySection: React.FC<CategoryProps> = (props) => {
   const tabConfig = [
     { key: 'expend', name: '支出' },
     { key: 'income', name: '收入' },
@@ -66,8 +66,8 @@ const CategorySection: React.FC = () => {
         {tabConfig.map((t, index) => (
           <li
             key={index}
-            className={t.key === type ? 'active' : ''}
-            onClick={() => setType(t.key)}
+            className={t.key === props.cate ? 'active' : ''}
+            onClick={() => props.onChange(t.key as CategoryData)}
           >
             {t.name}
           </li>

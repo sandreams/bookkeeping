@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
-import { useRef, useState, memo } from 'react'
+import { useRef, memo } from 'react'
+import { NoteProps } from 'types/money/index'
 const Wrapper = styled.div`
   background-color: #fff;
   padding: 18px 0 18px 35px;
@@ -18,12 +19,11 @@ const Wrapper = styled.div`
     }
   }
 `
-const NotesSection = () => {
-  const [note, setNote] = useState('')
+const NotesSection: React.FC<NoteProps> = (props) => {
   const refInput = useRef<HTMLInputElement>(null)
   const onBlur = () => {
     if (refInput.current) {
-      setNote(refInput.current.value)
+      props.onChange(refInput.current.value)
     }
   }
   console.log('Note 组件渲染了')
@@ -35,7 +35,7 @@ const NotesSection = () => {
           ref={refInput}
           type="text"
           placeholder="在这里添加注释"
-          defaultValue={note}
+          defaultValue={props.note}
           onBlur={onBlur}
         />
       </div>

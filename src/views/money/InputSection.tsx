@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import Numkey from './components/Numkey'
 import { computeOutput } from './InputSection/computeOutput'
 import {
@@ -6,11 +6,12 @@ import {
   OutputSection,
   NumberPadSection,
 } from './InputSection/Wrapper'
+import { InputProps } from 'types/money'
 
-const InputSection = (props: any) => {
-  const [numText, setNumText] = useState('0')
+const InputSection: React.FC<InputProps> = (props) => {
   const [calText, setCalText] = useState('')
   const [editMode, setMode] = useState(false)
+  const { numText } = props
   console.log('Input 组件 render 了')
   const setOutput = (output: string, text?: string) => {
     output = text ? numText + text : output
@@ -21,7 +22,7 @@ const InputSection = (props: any) => {
     } else if (output.indexOf('.') >= 0 && output.split('.')[1].length > 2) {
       return
     }
-    setNumText(output)
+    props.onChange(output)
   }
   const onClickNum = (e: React.MouseEvent) => {
     const dataset = (e.target as HTMLDivElement).dataset
@@ -112,4 +113,4 @@ const InputSection = (props: any) => {
     </Wrapper>
   )
 }
-export default InputSection
+export default memo(InputSection)

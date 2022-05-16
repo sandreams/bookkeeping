@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { bgColor, svgColor, fontColor } from 'src/helper'
 import { TagItemProps } from 'types/money'
+import { memo } from 'react'
 const TagItemWrapper = styled.div`
   width: 65px;
   height: 66px;
@@ -47,4 +48,4 @@ const TagItem: React.FC<TagItemProps> = (props) => {
     </TagItemWrapper>
   )
 }
-export default TagItem
+export default memo(TagItem)

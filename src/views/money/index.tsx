@@ -4,11 +4,14 @@ import CategorySection from './CategorySection'
 import TagsSection from './TagsSection'
 import NotesSection from './NotesSection'
 import InputSection from './InputSection'
-import { TagData } from 'types/money'
+import { TagData, MoneyDataSet, CategoryData } from 'types/money'
 
 const Money = () => {
-  const [selected, setSelected] = useState<TagData>({
-    id: 0,
+  const [dataset, setDataSet] = useState<MoneyDataSet>({
+    category: 'expend',
+    tag: { id: 0 },
+    note: '',
+    amount: '0',
   })
   const parentRef = useRef(null)
   const getInputNum = () => {
@@ -19,13 +22,42 @@ const Money = () => {
   console.log('主组件渲染了')
   return (
     <Layout title="记一笔">
-      <CategorySection />
-      <InputSection>
+      <CategorySection
+        cate={dataset.category}
+        onChange={(cate: CategoryData) =>
+          setDataSet({
+            ...dataset,
+            category: cate,
+          })
+        }
+      />
+      <InputSection
+        numText={dataset.amount}
+        onChange={(amount: string) =>
+          setDataSet({
+            ...dataset,
+            amount,
+          })
+        }
+      >
         <TagsSection
-          selected={selected}
-          onChange={(tag: TagData) => setSelected(tag)}
+          selected={dataset.tag}
+          onChange={(tag: TagData) =>
+            setDataSet({
+              ...dataset,
+              tag,
+            })
+          }
         />
-        <NotesSection />
+        <NotesSection
+          note={dataset.note}
+          onChange={(note: string) =>
+            setDataSet({
+              ...dataset,
+              note,
+            })
+          }
+        />
       </InputSection>
     </Layout>
   )

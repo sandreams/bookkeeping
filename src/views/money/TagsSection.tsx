@@ -55,7 +55,7 @@ const tagList = [
   },
 ]
 const TagsSection: React.FC<TagProps> = (props) => {
-  const [tags, setTags] = useState<TI[]>(tagList)
+  const tags = useState<TI[]>(tagList)[0]
   console.log('tags 组件渲染了')
   return (
     <Wrapper>
