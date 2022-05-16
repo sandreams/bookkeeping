@@ -48,27 +48,34 @@ const Wrapper = styled.section`
     }
   }
 `
-
-const TagListSection: React.FC = () => {
+type TagListProps = {
+  query: string
+}
+const TagListSection: React.FC<TagListProps> = (props) => {
   const { tags } = useTags()
+  console.log('TagList 组件 render 了')
   return (
     <Wrapper>
       <ul>
-        {tags.map((tag) => (
-          <li key={tag.id}>
-            <Icon
-              name="round_check"
-              iconClass={'icon-check' + (1 === 1 ? ' checked' : '')}
-            />
-            <div className="tag-item">
-              <Icon name={tag.iconName} iconClass="icon-item" />
-              <span>{tag.tagName}</span>
-              <Link to={`tag/${tag.id}`}>
-                <Icon name="icon_config" iconClass="icon-config" />
-              </Link>
-            </div>
-          </li>
-        ))}
+        {tags
+          .filter((t) => t.tagName.includes(props.query))
+          .map((tag) => (
+            <li key={tag.id}>
+              <Icon
+                name={tag.isActive === true ? 'round_check' : 'round'}
+                iconClass={
+                  'icon-check' + (tag.isActive === true ? ' checked' : '')
+                }
+              />
+              <div className="tag-item">
+                <Icon name={tag.iconName} iconClass="icon-item" />
+                <span>{tag.tagName}</span>
+                <Link to={`tag/${tag.id}`}>
+                  <Icon name="icon_config" iconClass="icon-config" />
+                </Link>
+              </div>
+            </li>
+          ))}
       </ul>
     </Wrapper>
   )

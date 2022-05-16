@@ -20,6 +20,7 @@ const Wrapper = styled.section`
   }
 `
 const NewTagSection: React.FC = () => {
+  console.log('NewTag 组件 render 了')
   return (
     <Wrapper>
       <Icon name="plus" />

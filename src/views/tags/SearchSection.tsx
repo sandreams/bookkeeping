@@ -2,6 +2,7 @@ import { memo, useState } from 'react'
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { fontColor, bgColor, svgColor } from 'src/helper'
+import { SearchProps } from 'types/tags'
 const Wrapper = styled.section`
   background: ${bgColor.white};
   padding: 10px;
@@ -31,8 +32,8 @@ const Wrapper = styled.section`
     }
   }
 `
-const SearchSection: React.FC = () => {
-  const [inputText, setInput] = useState('')
+const SearchSection: React.FC<SearchProps> = (props) => {
+  console.log('Search 组件 render 了')
   return (
     <Wrapper>
       <div className="checked-num">
@@ -42,9 +43,9 @@ const SearchSection: React.FC = () => {
         <Icon name="search" />
         <input
           type="text"
-          value={inputText}
-          placeholder="请输入关键词"
-          onChange={(event) => setInput(event.currentTarget.value)}
+          value={props.query}
+          placeholder="请输入关键词进行搜索"
+          onChange={(event) => props.onChange(event.currentTarget.value)}
         />
       </div>
     </Wrapper>
