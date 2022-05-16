@@ -6,8 +6,9 @@ type Params = {
 }
 const Tag: React.FC = () => {
   const { id } = useParams<Params>()
-  const { tags } = useTags()
-  const currentTag = tags.find((t) => t.id.toString() === id) as TagItem
+  const { findTag } = useTags()
+  const currentTag = findTag(id)
+  console.log('currentTag :>> ', currentTag)
   return (
     <div>
       <span>23123</span>

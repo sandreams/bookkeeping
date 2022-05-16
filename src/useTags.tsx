@@ -55,9 +55,11 @@ const getTagList = () => {
 }
 const useTags = () => {
   const [tags, setTags] = useState<TagItem[]>(getTagList())
+  const findTag = (id: string) => tags.filter((t) => t.id.toString() === id)[0]
   return {
     tags,
     setTags,
+    findTag,
   }
 }
 export { useTags }
