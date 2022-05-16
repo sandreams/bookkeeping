@@ -1,45 +1,46 @@
 import { useState } from 'react'
 import { TagItem } from 'types/money'
+import { createId } from 'src/lib/createId'
 
 const tagList = [
   {
-    id: 1,
+    id: createId(),
     tagName: '餐饮',
     isActive: false,
     iconName: '餐饮',
   },
   {
-    id: 2,
+    id: createId(),
     tagName: '购物',
     isActive: false,
     iconName: '购物',
   },
   {
-    id: 3,
+    id: createId(),
     tagName: '交通',
     isActive: false,
     iconName: '交通',
   },
   {
-    id: 4,
+    id: createId(),
     tagName: '水电费',
     isActive: false,
     iconName: '水电',
   },
   {
-    id: 5,
+    id: createId(),
     tagName: '外卖',
     isActive: false,
     iconName: '外卖',
   },
   {
-    id: 6,
+    id: createId(),
     tagName: '租赁',
     isActive: false,
     iconName: '租赁',
   },
   {
-    id: 7,
+    id: createId(),
     tagName: '娱乐',
     isActive: false,
     iconName: '娱乐',
