@@ -80,7 +80,7 @@ const TagListSection: React.FC<TagListProps> = props => {
               <div className="tag-item">
                 <Icon name={tag.iconName} iconClass="icon-item" />
                 <span>{tag.tagName}</span>
-                <Link to={`tag/${tag.id}`}>
+                <Link to={{ pathname: 'tag/edit', search: `?id=${tag.id}` }}>
                   <Icon name="icon_config" iconClass="icon-config" />
                 </Link>
               </div>
