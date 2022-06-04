@@ -43,7 +43,10 @@ export default function App() {
       <Route exact path="/statistics">
         <Statistics />
       </Route>
-      <Route path="/tag/:id">
+      <Route path="/tag/edit">
+        <Tag />
+      </Route>
+      <Route path="/tag/new" exact>
         <Tag />
       </Route>
       <Route path="*">
