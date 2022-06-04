@@ -9,55 +9,57 @@ const defaultTagList = [
     id: createId(),
     tagName: '餐饮',
     isActive: getBool(),
-    iconName: '餐饮',
+    iconName: '餐饮'
   },
   {
     id: createId(),
     tagName: '购物',
     isActive: getBool(),
-    iconName: '购物',
+    iconName: '购物'
   },
   {
     id: createId(),
     tagName: '交通',
     isActive: getBool(),
-    iconName: '交通',
+    iconName: '交通'
   },
   {
     id: createId(),
     tagName: '水电费',
     isActive: getBool(),
-    iconName: '水电',
+    iconName: '水电'
   },
   {
     id: createId(),
     tagName: '外卖',
     isActive: getBool(),
-    iconName: '外卖',
+    iconName: '外卖'
   },
   {
     id: createId(),
     tagName: '租赁',
     isActive: getBool(),
-    iconName: '租赁',
+    iconName: '租赁'
   },
   {
     id: createId(),
     tagName: '娱乐',
     isActive: getBool(),
-    iconName: '娱乐',
-  },
+    iconName: '娱乐'
+  }
 ]
 const getTagList = () => {
-  return localStorage.getItem('tagList')
-    ? (JSON.parse(localStorage.getItem('tagList') as string) as Array<TagItem>)
-    : defaultTagList
+  return localStorage.getItem('tagList') ? (JSON.parse(localStorage.getItem('tagList') as string) as Array<TagItem>) : defaultTagList
 }
 const useTags = () => {
   const [tags, setTags] = useState<TagItem[]>(getTagList())
+  // const setTags = (new_tags: Array<TagItem>) => {
+  //   localStorage.setItem('tagList', JSON.stringify(new_tags))
+  //   _setTags(new_tags)
+  // }
   return {
     tags,
-    setTags,
+    setTags
   }
 }
 export { useTags }

@@ -1,8 +1,9 @@
-import { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { fontColor, svgColor, bgColor } from 'src/helper'
+import { TagItem } from 'types/money'
 import { useTags } from 'src/useTags'
 
 const Wrapper = styled.section`
@@ -51,22 +52,31 @@ const Wrapper = styled.section`
 type TagListProps = {
   query: string
 }
-const TagListSection: React.FC<TagListProps> = (props) => {
-  const { tags } = useTags()
+const TagListSection: React.FC<TagListProps> = props => {
+  const { tags, setTags } = useTags()
+  const changeSelectStatus = (e: React.MouseEvent<HTMLAnchorElement>, tag: TagItem) => {
+    e.preventDefault()
+    setTags(tags.map(t => (tag.id === t.id ? { ...t, isActive: !t.isActive } : t)))
+  }
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('tagList', JSON.stringify(tags))
+    }
+  }, [tags])
   console.log('TagList 组件 render 了')
   return (
     <Wrapper>
       <ul>
         {tags
-          .filter((t) => t.tagName.includes(props.query))
-          .map((tag) => (
+          .filter(t => t.tagName.includes(props.query))
+          .map(tag => (
             <li key={tag.id}>
-              <Icon
-                name={tag.isActive === true ? 'round_check' : 'round'}
-                iconClass={
-                  'icon-check' + (tag.isActive === true ? ' checked' : '')
-                }
-              />
+              <a href="#!" onClick={e => changeSelectStatus(e, tag)}>
+                <Icon
+                  name={tag.isActive === true ? 'round_check' : 'round'}
+                  iconClass={'icon-check' + (tag.isActive === true ? ' checked' : '')}
+                />
+              </a>
               <div className="tag-item">
                 <Icon name={tag.iconName} iconClass="icon-item" />
                 <span>{tag.tagName}</span>
