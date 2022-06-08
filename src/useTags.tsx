@@ -57,9 +57,12 @@ const useTags = () => {
   //   localStorage.setItem('tagList', JSON.stringify(new_tags))
   //   _setTags(new_tags)
   // }
+
+  const findTag = (id: string) => tags.filter(t => t.id.toString() === id)[0]
   return {
     tags,
-    setTags
+    setTags,
+    findTag
   }
 }
 export { useTags }

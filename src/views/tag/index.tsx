@@ -98,6 +98,7 @@ const resolvePath = (path: string) => {
   const match = path.match(/(?:[a-z]+)$/g)
   return match && match.length ? match[match.length - 1] : ''
 }
+
 const Tag: React.FC = props => {
   const { tags } = useTags()
   const history = useHistory()
@@ -133,6 +134,7 @@ const Tag: React.FC = props => {
       // 删除操作
     }
   }
+
   return (
     <Layout>
       <TopBar>
