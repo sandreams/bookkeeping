@@ -4,6 +4,7 @@ import Tags from 'src/views/tags'
 import Money from 'src/views/money/index'
 import Statistics from 'src/views/Statistics'
 import Tag from 'src/views/tag'
+import Icons from 'src/views/icons'
 
 const NoMatch = () => {
   let location = useLocation()
@@ -48,6 +49,9 @@ export default function App() {
       </Route>
       <Route path="/tag/new" exact>
         <Tag />
+      </Route>
+      <Route exact path="/tag/icons">
+        <Icons />
       </Route>
       <Route path="*">
         <NoMatch />

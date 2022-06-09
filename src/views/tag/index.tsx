@@ -99,7 +99,7 @@ const resolvePath = (path: string) => {
   return match && match.length ? match[match.length - 1] : ''
 }
 
-const Tag: React.FC = props => {
+const Tag: React.FC = (props) => {
   const { tags } = useTags()
   const history = useHistory()
   const { search, state, pathname } = useLocation<stateType>()
@@ -112,7 +112,11 @@ const Tag: React.FC = props => {
     }
   }, [pathname, history])
   const mode = resolvePath(pathname)
-  const currentTag = (state as TagItem) || (tags.find(t => t.id.toString() === queryString.parse(search).id) as TagItem)
+  const currentTag =
+    (state as TagItem) ||
+    (tags.find(
+      (t) => t.id.toString() === queryString.parse(search).id
+    ) as TagItem)
   if (mode === 'edit' && !currentTag) {
     alert('找不到条目！')
     history.goBack()
@@ -150,12 +154,20 @@ const Tag: React.FC = props => {
         <div className="inner-content">
           <label className="input-name">
             分类名称
-            <input ref={refInput} type="text" defaultValue={tagData.tagName} onBlur={onBlur} />
+            <input
+              ref={refInput}
+              type="text"
+              defaultValue={tagData.tagName}
+              onBlur={onBlur}
+            />
           </label>
         </div>
       </TagName>
       <TagIcon>
-        <Link to={{ pathname: '/tags/icons', state: tagData }} className="tag-icon-anchor">
+        <Link
+          to={{ pathname: '/tag/icons', state: tagData }}
+          className="tag-icon-anchor"
+        >
           <Icon name="图标" iconClass="icon-prefix" />
           <span style={{ marginRight: 'auto' }}>图标</span>
           <Icon name={tagData.tagName as string} iconClass="tag-icon" />

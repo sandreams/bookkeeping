@@ -2,24 +2,24 @@ const {
   override,
   addWebpackModuleRule,
   overrideDevServer,
-} = require("customize-cra");
+} = require('customize-cra')
 /**
  * @description: 用户自定义修改 webpack config
  * @param {object} config webpack 的配置
  * @return {object} 修改后的 webpack 配置
  */
 const addCustomize = () => (config) => {
-  console.log("打印环境 :>> ", process.env.NODE_ENV);
-  if (process.env.NODE_ENV === "production") {
+  console.log('打印环境 :>> ', process.env.NODE_ENV)
+  if (process.env.NODE_ENV === 'production') {
     // 生产环境
     // 关闭sourceMap
-    config.devtool = false;
+    config.devtool = false
   } else {
     // 开发环境
   }
   // console.log('config :>> ', config.module)
-  return config;
-};
+  return config
+}
 /**
  * @description: 更改默认 devServer 配置
  * @param {*} config
@@ -30,28 +30,27 @@ const setDevServerSettings = () => (config) => {
   // Object.assign(config, {
   //   port: 9001,
   // });
-  config.port = 9001;
-  return config;
-};
+  config.port = 9001
+  return config
+}
 module.exports = {
   webpack: override(
     addWebpackModuleRule({
       test: /\.svg$/,
       use: [
-        { loader: "svg-sprite-loader", options: {} },
         {
-          loader: "svgo-loader",
+          loader: 'svg-sprite-loader',
           options: {
-            plugins: [{ removeAttrs: { attrs: "fill" } }],
+            symbolId: 'remi',
           },
         },
       ],
     }),
     addWebpackModuleRule({
       test: /\.s[ac]ss$/i,
-      use: ["style-loader", "css-loader", "sass-loader"],
+      use: ['style-loader', 'css-loader', 'sass-loader'],
     }),
     addCustomize()
   ),
   // devServer: overrideDevServer(setDevServerSettings()),
-};
+}

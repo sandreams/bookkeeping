@@ -1981,6 +1981,13 @@
     "@types/react" "*"
     csstype "^3.0.2"
 
+"@types/svg-sprite-loader@^3.9.5":
+  version "3.9.5"
+  resolved "https://registry.npmmirror.com/@types/svg-sprite-loader/-/svg-sprite-loader-3.9.5.tgz#ca82c336583ad0675b3876854475261d83a754f3"
+  integrity sha512-atkZCO1smlZsuMgRmJMCFY589gOy9g0tnFs6+JWs4x5/C7h8yYBPFL90s8Qblm7SVDc0dfpTGvP00Snzraph1g==
+  dependencies:
+    "@types/webpack" "^4"
+
 "@types/tapable@^1":
   version "1.0.8"
   resolved "https://registry.npmmirror.com/@types/tapable/-/tapable-1.0.8.tgz#b94a4391c85666c7b73299fd3ad79d4faa435310"
@@ -8031,6 +8038,11 @@ relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.npmmirror.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
+
+remixicon@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.npmmirror.com/remixicon/-/remixicon-2.5.0.tgz#b5e245894a1550aa23793f95daceadbf96ad1a41"
+  integrity sha512-q54ra2QutYDZpuSnFjmeagmEiN9IMo56/zz5dDNitzKD23oFRw77cWo4TsrAdmdkPiEn8mxlrTqxnkujDbEGww==
 
 renderkid@^3.0.0:
   version "3.0.0"

@@ -2,4 +2,9 @@ interface IconProp {
   name: string
   iconClass?: string
 }
-export { IconProp }
+interface BrowserSpriteSymbol {
+  id: string
+  viewBox: string
+  content: string
+}
+export { IconProp, BrowserSpriteSymbol }
