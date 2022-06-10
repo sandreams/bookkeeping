@@ -9,7 +9,12 @@ import { IconProp } from 'types'
 const Icon = (props: IconProp) => {
   return (
     <svg className={`icon ${props.iconClass || ''}`}>
-      <use xlinkHref={'#icon-' + props.name}></use>
+      <use
+        xlinkHref={
+          '#' +
+          (props.name.startsWith('icon-') ? props.name : 'icon-' + props.name)
+        }
+      ></use>
     </svg>
   )
 }

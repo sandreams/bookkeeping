@@ -6,8 +6,9 @@ import Icon from 'src/components/Icon'
 import { useTags } from 'src/useTags'
 import { useTag } from 'src/useTag'
 import { TagItem, TagData } from 'types/money'
+import { stateType } from 'types/tags'
 import { svgColor, fontColor, bgColor } from 'src/helper'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const TopBar = styled.header`
   background: #fff;
@@ -93,7 +94,6 @@ const DelBtnWrapper = styled.div`
     border-radius: 4px;
   }
 `
-type stateType = TagData | undefined
 const resolvePath = (path: string) => {
   const match = path.match(/(?:[a-z]+)$/g)
   return match && match.length ? match[match.length - 1] : ''
@@ -104,7 +104,6 @@ const Tag: React.FC = (props) => {
   const history = useHistory()
   const { search, state, pathname } = useLocation<stateType>()
   useEffect(() => {
-    console.log('path change')
     if (['new', 'edit'].indexOf(resolvePath(pathname)) < 0) {
       // 返回上一级
       alert('操作错误，请重试！')
@@ -138,7 +137,13 @@ const Tag: React.FC = (props) => {
       // 删除操作
     }
   }
-
+  const goSelectIcon = (e: React.MouseEvent) => {
+    e.preventDefault()
+    history.replace({
+      pathname: '/tag/icons',
+      state: { ...tagData, oldPath: pathname },
+    })
+  }
   return (
     <Layout>
       <TopBar>
@@ -164,15 +169,16 @@ const Tag: React.FC = (props) => {
         </div>
       </TagName>
       <TagIcon>
-        <Link
-          to={{ pathname: '/tag/icons', state: tagData }}
+        <a
+          href="javascript;"
+          onClick={goSelectIcon}
           className="tag-icon-anchor"
         >
           <Icon name="图标" iconClass="icon-prefix" />
           <span style={{ marginRight: 'auto' }}>图标</span>
-          <Icon name={tagData.tagName as string} iconClass="tag-icon" />
+          <Icon name={tagData.iconName as string} iconClass="tag-icon" />
           <Icon name="arrow-right" iconClass="icon-after" />
-        </Link>
+        </a>
       </TagIcon>
       <DelBtnWrapper>
         {mode === 'edit' ? (
