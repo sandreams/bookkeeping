@@ -18,6 +18,7 @@ const NavWrapper = styled.nav`
         .icon {
           width: 24px;
           height: 24px;
+          fill: ${svgColor.normal};
         }
         span {
           margin-top: 5px;
@@ -38,19 +39,19 @@ export default function Nav() {
       <ul className="nav navbar-nav">
         <li>
           <NavLink to="/tags" activeClassName="selected">
-            <Icon name="price-tag-3-fill" />
+            <Icon name="tag" />
             <span>标签</span>
           </NavLink>
         </li>
         <li>
           <NavLink to="/money" activeClassName="selected">
-            <Icon name="money-cny-box-line" />
+            <Icon name="money" />
             <span>记一笔</span>
           </NavLink>
         </li>
         <li>
           <NavLink to="/statistics" activeClassName="selected">
-            <Icon name="bar-chart-box-line" />
+            <Icon name="chart" />
             <span>统计</span>
           </NavLink>
         </li>

@@ -38,10 +38,11 @@ module.exports = {
     addWebpackModuleRule({
       test: /\.svg$/,
       use: [
+        { loader: 'svg-sprite-loader', options: {} },
         {
-          loader: 'svg-sprite-loader',
+          loader: 'svgo-loader',
           options: {
-            symbolId: 'remi',
+            plugins: [{ removeAttrs: { attrs: 'fill' } }],
           },
         },
       ],

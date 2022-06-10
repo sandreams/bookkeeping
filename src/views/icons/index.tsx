@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 const iconList = [
-  { name: '奖金', className: 'home-line' },
+  { name: '奖金', className: 'refund-2-fill' },
   { name: '商务', className: 'account-box-line' },
-  { name: '衣服', className: 'clothes' },
+  { name: '衣服', className: 'shirt-line' },
   { name: '日常开销', className: 'daily' },
   { name: '捐赠', className: 'donate' },
   { name: '娱乐', className: 'entertainment' },
