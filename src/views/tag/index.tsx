@@ -101,7 +101,7 @@ const resolvePath = (path: string) => {
 }
 
 const Tag: React.FC = (props) => {
-  const { tags } = useTags()
+  const { findTag, createTag, updateTag } = useTags()
   const history = useHistory()
   const { search, state, pathname } = useLocation<stateType>()
   useEffect(() => {
@@ -113,10 +113,7 @@ const Tag: React.FC = (props) => {
   }, [pathname, history])
   const mode = resolvePath(pathname)
   const currentTag =
-    (state as TagItem) ||
-    (tags.find(
-      (t) => t.id.toString() === queryString.parse(search).id
-    ) as TagItem)
+    (state as TagItem) || findTag(queryString.parse(search).id as string)
   if (mode === 'edit' && !currentTag) {
     alert('找不到条目！')
     history.goBack()
@@ -145,6 +142,27 @@ const Tag: React.FC = (props) => {
       state: { ...tagData, oldPath: pathname },
     })
   }
+  const onSaveTag = (e: React.MouseEvent) => {
+    e.preventDefault()
+    // 校验名称
+    if (!tagData.tagName) {
+      alert('标签名不能为空！')
+      return
+    }
+    // 校验图标
+    if (!tagData.iconName) {
+      alert('必须选择一个图标！')
+      return
+    }
+    console.log('mode :>> ', mode)
+    if (mode === 'edit') {
+      updateTag(tagData as TagItem)
+    } else {
+      createTag(tagData as TagItem)
+    }
+    // 保存成功，返回上一级
+    history.goBack()
+  }
   return (
     <Layout>
       <TopBar>
@@ -152,7 +170,7 @@ const Tag: React.FC = (props) => {
           <Icon name="arrow-left" iconClass="top-icon top-icon--back"></Icon>
         </a>
         <span className="header-name">编辑标签</span>
-        <a href="#!">
+        <a href="#!" onClick={onSaveTag}>
           <Icon name="check" iconClass="top-icon top-icon--ok"></Icon>
         </a>
       </TopBar>

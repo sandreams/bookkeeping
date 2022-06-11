@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
-import { useTags } from 'src/useTags'
 import { useLocation, useHistory } from 'react-router-dom'
 import { stateType } from 'types/tags'
+import { svgColor } from 'src/helper'
 const iconList = [
   { name: '奖金', className: 'icon_bonus' },
   { name: '商务', className: 'icon_business' },
@@ -44,8 +44,23 @@ const Wrapper = styled.section`
       align-items: center;
       padding: 10px 0;
       margin: 10px 0;
+      position: relative;
+      .icon.icon-checked {
+        display: none;
+      }
       &.current {
         background: #f1f0f5;
+        .icon.icon-checked {
+          position: absolute;
+          display: inline-block;
+          bottom: 0;
+          right: 0;
+          width: 18px;
+          height: 18px;
+          fill: ${svgColor.active};
+          /* padding: 3px; */
+          margin-right: 10px;
+        }
       }
       .icon {
         width: 30px;
@@ -78,6 +93,7 @@ const Icons = () => {
           >
             <Icon name={i.className} />
             <p>{i.name}</p>
+            <Icon name="check" iconClass="icon-checked" />
           </div>
         ))}
       </div>

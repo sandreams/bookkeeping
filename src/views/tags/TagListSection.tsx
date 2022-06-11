@@ -53,21 +53,14 @@ type TagListProps = {
   query: string
 }
 const TagListSection: React.FC<TagListProps> = (props) => {
-  const { tags, setTags } = useTags()
+  const { tags, setTags, updateTag } = useTags()
   const changeSelectStatus = (
     e: React.MouseEvent<HTMLAnchorElement>,
     tag: TagItem
   ) => {
     e.preventDefault()
-    setTags(
-      tags.map((t) => (tag.id === t.id ? { ...t, isActive: !t.isActive } : t))
-    )
+    updateTag({ ...tag, isActive: !tag.isActive })
   }
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('tagList', JSON.stringify(tags))
-    }
-  }, [tags])
   console.log('TagList 组件 render 了')
   return (
     <Wrapper>
