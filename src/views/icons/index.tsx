@@ -32,6 +32,23 @@ const Wrapper = styled.section`
   header {
     padding: 0 20px;
     font-size: 18px;
+    display: flex;
+    align-items: center;
+    .top-icon {
+      height: 24px;
+      width: 24px;
+    }
+    button {
+      .top-icon {
+        vertical-align: middle;
+      }
+    }
+    .header-title {
+      margin: 0 auto;
+    }
+    .top-icon--blank {
+      opacity: 0;
+    }
   }
   .icon-container {
     display: flex;
@@ -78,9 +95,18 @@ const Icons = () => {
   const selectIcon = (iconName: string) => {
     history.replace({ pathname: state.oldPath, state: { ...state, iconName } })
   }
+  const goBack = () => {
+    history.replace({ pathname: state.oldPath, state })
+  }
   return (
     <Wrapper>
-      <header>请选择一个图标:</header>
+      <header>
+        <button onClick={goBack}>
+          <Icon name="arrow-left" iconClass="top-icon top-icon--back"></Icon>
+        </button>
+        <span className="header-title">请选择一个图标</span>
+        <Icon name="arrow-left" iconClass="top-icon top-icon--blank"></Icon>
+      </header>
       <div className="icon-container">
         {iconList.map((i) => (
           <div

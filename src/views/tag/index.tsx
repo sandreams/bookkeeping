@@ -168,7 +168,13 @@ const Tag: React.FC = (props) => {
   return (
     <Layout>
       <TopBar>
-        <a href="#!" onClick={() => history.goBack()}>
+        <a
+          href="#!"
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault()
+            history.goBack()
+          }}
+        >
           <Icon name="arrow-left" iconClass="top-icon top-icon--back"></Icon>
         </a>
         <span className="header-name">编辑标签</span>
