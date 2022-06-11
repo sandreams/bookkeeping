@@ -23,7 +23,7 @@ interface TagItemProps {
   iconName: string
   tagName: string
   isActive: boolean
-  onTagChange: () => void
+  onTagChange?: () => void
 }
 interface TagProps {
   selected: TagData
