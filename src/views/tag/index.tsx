@@ -101,7 +101,7 @@ const resolvePath = (path: string) => {
 }
 
 const Tag: React.FC = (props) => {
-  const { findTag, createTag, updateTag } = useTags()
+  const { findTag, createTag, updateTag, removeTag } = useTags()
   const history = useHistory()
   const { search, state, pathname } = useLocation<stateType>()
   useEffect(() => {
@@ -133,6 +133,8 @@ const Tag: React.FC = (props) => {
   const handleRemove = () => {
     if (window.confirm('是否确认删除')) {
       // 删除操作
+      removeTag(tagData.id)
+      history.goBack()
     }
   }
   const goSelectIcon = (e: React.MouseEvent) => {

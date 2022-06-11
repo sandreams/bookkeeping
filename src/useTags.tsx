@@ -74,6 +74,7 @@ const useTags = () => {
     )
   }
   const getCheckedTags = () => tags.filter((t) => t.isActive === true)
+  const removeTag = (id: number) => setTags(tags.filter((t) => t.id !== id))
   return {
     tags,
     setTags,
@@ -81,6 +82,7 @@ const useTags = () => {
     createTag,
     updateTag,
     getCheckedTags,
+    removeTag,
   }
 }
 export { useTags }
