@@ -93,10 +93,18 @@ const Icons = () => {
   const { state } = useLocation<stateType>()
   const history = useHistory()
   const selectIcon = (iconName: string) => {
-    history.replace({ pathname: state.oldPath, state: { ...state, iconName } })
+    history.replace({
+      pathname: state.oldPath.split('?')[0],
+      search: state.oldPath.split('?')[1] || '',
+      state: { ...state, iconName },
+    })
   }
   const goBack = () => {
-    history.replace({ pathname: state.oldPath, state })
+    history.replace({
+      pathname: state.oldPath.split('?')[0],
+      search: state.oldPath.split('?')[1] || '',
+      state,
+    })
   }
   return (
     <Wrapper>

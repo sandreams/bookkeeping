@@ -56,6 +56,7 @@ const getTagList = () => {
 const useTags = () => {
   const [tags, setTags] = useState<TagItem[]>(getTagList())
   useEffect(() => {
+    // 需要优化的问题：初始化时必定会执行一次
     console.log('set store tagList')
     localStorage.setItem('tagList', JSON.stringify(tags))
   }, [tags])

@@ -1,3 +1,4 @@
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import queryString from 'query-string'
@@ -5,10 +6,9 @@ import Layout from 'src/components/Layout'
 import Icon from 'src/components/Icon'
 import { useTags } from 'src/useTags'
 import { useTag } from 'src/useTag'
-import { TagItem } from 'types/money'
+import { TagData, TagItem } from 'types/money'
 import { stateType } from 'types/tags'
 import { svgColor, fontColor, bgColor } from 'src/helper'
-import React, { useEffect, useRef } from 'react'
 
 const TopBar = styled.header`
   background: #fff;
@@ -29,6 +29,9 @@ const TopBar = styled.header`
     }
     &--ok {
       fill: ${svgColor.active};
+    }
+    &.hide {
+      opacity: 0;
     }
   }
 `
@@ -119,6 +122,17 @@ const Tag: React.FC = (props) => {
     history.goBack()
   }
   const { tagData, setTag } = useTag(currentTag)
+  const initTagData = useRef<TagData>(
+    findTag(queryString.parse(search).id as string) || {}
+  )
+  const showSaveBtn = useMemo(() => {
+    console.log('重新计算 showBtn 的值')
+    return (
+      tagData.id !== initTagData.current.id ||
+      tagData.tagName !== initTagData.current.tagName ||
+      tagData.iconName !== initTagData.current.iconName
+    )
+  }, [tagData])
   const refInput = useRef<HTMLInputElement>(null)
   const onBlur = () => {
     if (refInput.current) {
@@ -141,11 +155,15 @@ const Tag: React.FC = (props) => {
     e.preventDefault()
     history.replace({
       pathname: '/tag/icons',
-      state: { ...tagData, oldPath: pathname },
+      state: { ...tagData, oldPath: pathname + (search || '') },
     })
   }
   const onSaveTag = (e: React.MouseEvent) => {
     e.preventDefault()
+    if (!showSaveBtn) {
+      console.log('nothing happened')
+      return
+    }
     // 校验名称
     if (!tagData.tagName) {
       alert('标签名不能为空！')
@@ -179,7 +197,10 @@ const Tag: React.FC = (props) => {
         </a>
         <span className="header-name">编辑标签</span>
         <a href="#!" onClick={onSaveTag}>
-          <Icon name="check" iconClass="top-icon top-icon--ok"></Icon>
+          <Icon
+            name="check"
+            iconClass={'top-icon top-icon--ok' + (showSaveBtn ? '' : ' hide')}
+          ></Icon>
         </a>
       </TopBar>
       <TagName>
