@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { fontColor, bgColor, svgColor } from 'src/helper'

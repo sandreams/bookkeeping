@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Icon from 'src/components/Icon'
@@ -20,6 +20,7 @@ const Wrapper = styled.section`
     .icon.icon-check {
       fill: ${svgColor.light};
       margin-right: 10px;
+      vertical-align: middle;
     }
     .icon.icon-check.checked {
       fill: ${svgColor.active};
@@ -29,6 +30,7 @@ const Wrapper = styled.section`
     }
     .icon.icon-config {
       fill: ${svgColor.light};
+      vertical-align: middle;
     }
     .tag-item {
       flex: 1;
@@ -53,7 +55,7 @@ type TagListProps = {
   query: string
 }
 const TagListSection: React.FC<TagListProps> = (props) => {
-  const { tags, setTags, updateTag } = useTags()
+  const { tags, updateTag } = useTags()
   const changeSelectStatus = (
     e: React.MouseEvent<HTMLAnchorElement>,
     tag: TagItem
@@ -62,6 +64,7 @@ const TagListSection: React.FC<TagListProps> = (props) => {
     updateTag({ ...tag, isActive: !tag.isActive })
   }
   console.log('TagList 组件 render 了')
+  console.log('tags :>> ', tags)
   return (
     <Wrapper>
       <ul>

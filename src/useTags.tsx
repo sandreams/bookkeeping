@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { TagData, TagItem } from 'types/money'
+import { TagItem } from 'types/money'
 import { createId } from 'src/lib/createId'
 const getBool = () => {
   return Math.random() > 0.5
@@ -73,12 +73,14 @@ const useTags = () => {
       })
     )
   }
+  const getCheckedTags = () => tags.filter((t) => t.isActive === true)
   return {
     tags,
     setTags,
     findTag,
     createTag,
     updateTag,
+    getCheckedTags,
   }
 }
 export { useTags }
