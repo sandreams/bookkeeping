@@ -13,6 +13,7 @@ const Main = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-bottom: 54px;
 `
 const Layout = (props: any) => {
   return (

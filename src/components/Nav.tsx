@@ -4,6 +4,10 @@ import Icon from './Icon'
 import { fontColor, svgColor } from 'src/helper'
 const NavWrapper = styled.nav`
   background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   > ul {
     display: flex;
     > li {
