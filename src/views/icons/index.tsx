@@ -58,11 +58,8 @@ const Wrapper = styled.section`
   }
 `
 const Icons = () => {
-  // const { findTag } = useTags()
   const { state } = useLocation<stateType>()
   const history = useHistory()
-  // const currentTag = findTag(state.id.toString())
-  // console.log('currentTag :>> ', currentTag)
   const selectIcon = (iconName: string) => {
     history.replace({ pathname: state.oldPath, state: { ...state, iconName } })
   }

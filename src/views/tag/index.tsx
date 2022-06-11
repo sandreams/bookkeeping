@@ -57,9 +57,10 @@ const TagIcon = styled.section`
     display: flex;
     align-items: center;
     .icon-prefix {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       fill: ${svgColor.light};
+      margin-top: -2px;
     }
     .icon-after {
       width: 24px;
@@ -148,11 +149,11 @@ const Tag: React.FC = (props) => {
     <Layout>
       <TopBar>
         <a href="#!" onClick={() => history.goBack()}>
-          <Icon name="back" iconClass="top-icon top-icon--back"></Icon>
+          <Icon name="arrow-left" iconClass="top-icon top-icon--back"></Icon>
         </a>
         <span className="header-name">编辑标签</span>
         <a href="#!">
-          <Icon name="ok" iconClass="top-icon top-icon--ok"></Icon>
+          <Icon name="check" iconClass="top-icon top-icon--ok"></Icon>
         </a>
       </TopBar>
       <TagName>
@@ -174,7 +175,7 @@ const Tag: React.FC = (props) => {
           onClick={goSelectIcon}
           className="tag-icon-anchor"
         >
-          <Icon name="图标" iconClass="icon-prefix" />
+          <Icon name="tubiao" iconClass="icon-prefix" />
           <span style={{ marginRight: 'auto' }}>图标</span>
           <Icon name={tagData.iconName as string} iconClass="tag-icon" />
           <Icon name="arrow-right" iconClass="icon-after" />

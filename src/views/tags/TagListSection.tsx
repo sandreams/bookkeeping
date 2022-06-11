@@ -52,11 +52,16 @@ const Wrapper = styled.section`
 type TagListProps = {
   query: string
 }
-const TagListSection: React.FC<TagListProps> = props => {
+const TagListSection: React.FC<TagListProps> = (props) => {
   const { tags, setTags } = useTags()
-  const changeSelectStatus = (e: React.MouseEvent<HTMLAnchorElement>, tag: TagItem) => {
+  const changeSelectStatus = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    tag: TagItem
+  ) => {
     e.preventDefault()
-    setTags(tags.map(t => (tag.id === t.id ? { ...t, isActive: !t.isActive } : t)))
+    setTags(
+      tags.map((t) => (tag.id === t.id ? { ...t, isActive: !t.isActive } : t))
+    )
   }
   useEffect(() => {
     return () => {
@@ -68,20 +73,26 @@ const TagListSection: React.FC<TagListProps> = props => {
     <Wrapper>
       <ul>
         {tags
-          .filter(t => t.tagName.includes(props.query))
-          .map(tag => (
+          .filter((t) => t.tagName.includes(props.query))
+          .map((tag) => (
             <li key={tag.id}>
-              <a href="#!" onClick={e => changeSelectStatus(e, tag)}>
+              <a href="#!" onClick={(e) => changeSelectStatus(e, tag)}>
                 <Icon
-                  name={tag.isActive === true ? 'round_check' : 'round'}
-                  iconClass={'icon-check' + (tag.isActive === true ? ' checked' : '')}
+                  name={
+                    tag.isActive === true
+                      ? 'check-circle'
+                      : 'checkbox-blank-circle-outline'
+                  }
+                  iconClass={
+                    'icon-check' + (tag.isActive === true ? ' checked' : '')
+                  }
                 />
               </a>
               <div className="tag-item">
                 <Icon name={tag.iconName} iconClass="icon-item" />
                 <span>{tag.tagName}</span>
                 <Link to={{ pathname: 'tag/edit', search: `?id=${tag.id}` }}>
-                  <Icon name="icon_config" iconClass="icon-config" />
+                  <Icon name="setting" iconClass="icon-config" />
                 </Link>
               </div>
             </li>

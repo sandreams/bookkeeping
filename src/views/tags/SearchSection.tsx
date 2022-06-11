@@ -22,6 +22,7 @@ const Wrapper = styled.section`
     align-items: center;
     input {
       font-size: 12px;
+      line-height: 20px;
       color: ${fontColor.light};
     }
     .icon {
