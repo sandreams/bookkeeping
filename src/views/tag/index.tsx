@@ -110,29 +110,30 @@ const defaultTagData = {
 const Tag: React.FC = () => {
   const { findTag, createTag, updateTag, removeTag } = useTags()
   const history = useHistory()
-  const { search, state, pathname } = useLocation<stateType>()
+  const location = useLocation<stateType>()
   const [tagData, setTag] = useState<TagData>(defaultTagData)
   const initTagData = useRef<TagData>(
-    findTag(queryString.parse(search).id as string) || {}
+    findTag(queryString.parse(location.search).id as string) || {}
   )
+  const mode = useRef('')
   const refInput = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    if (['new', 'edit'].indexOf(resolvePath(pathname)) < 0) {
+    const modeType = resolvePath(location.pathname)
+    if (['new', 'edit'].indexOf(modeType) < 0) {
       // 返回上一级
       alert('操作错误，请重试！')
       history.goBack()
     }
-  }, [pathname, history])
-  const mode = resolvePath(pathname)
-  useEffect(() => {
     const currentTag =
-      (state as TagItem) || findTag(queryString.parse(search).id as string)
-    if (mode === 'edit' && !currentTag) {
+      (location.state as TagItem) ||
+      findTag(queryString.parse(location.search).id as string)
+    if (modeType === 'edit' && !currentTag) {
       alert('找不到条目！')
       history.goBack()
     }
+    mode.current = modeType
     setTag(currentTag || defaultTagData)
-  }, [])
+  }, [location, history])
   useEffect(() => {
     if (refInput.current) {
       refInput.current.focus()
@@ -162,7 +163,10 @@ const Tag: React.FC = () => {
     e.preventDefault()
     history.replace({
       pathname: '/tag/icons',
-      state: { ...tagData, oldPath: pathname + (search || '') },
+      state: {
+        ...tagData,
+        oldPath: location.pathname + (location.search || ''),
+      },
     })
   }
   const onSaveTag = (e: React.MouseEvent) => {
@@ -181,8 +185,8 @@ const Tag: React.FC = () => {
       alert('必须选择一个图标！')
       return
     }
-    console.log('mode :>> ', mode)
-    if (mode === 'edit') {
+    console.log('mode :>> ', mode.current)
+    if (mode.current === 'edit') {
       updateTag(tagData as TagItem)
     } else {
       createTag(tagData as TagItem)
@@ -236,7 +240,7 @@ const Tag: React.FC = () => {
         </a>
       </TagIcon>
       <DelBtnWrapper>
-        {mode === 'edit' ? (
+        {mode.current === 'edit' ? (
           <button className="btn-del" onClick={handleRemove}>
             删除标签
           </button>
