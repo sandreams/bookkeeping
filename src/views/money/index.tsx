@@ -1,5 +1,6 @@
 import Layout from 'src/components/Layout'
 import { useState } from 'react'
+import { Toast } from 'zarm'
 import CategorySection from './CategorySection'
 import TagsSection from './TagsSection'
 import NotesSection from './NotesSection'
@@ -24,7 +25,10 @@ const Money = () => {
   const submit = () => {
     console.log('用户点击了确认')
     addRecord({ ...dataset })
-    alert('添加成功')
+    Toast.show({
+      content: '保存成功',
+      stayTime: 3000,
+    })
   }
   console.log('主组件渲染了')
   return (
