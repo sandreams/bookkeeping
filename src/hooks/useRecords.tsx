@@ -19,7 +19,12 @@ export const useRecords = () => {
     console.log('recordId :>> ', recordId)
     setRecords([
       ...records,
-      { ...record, id: recordId, amount: Number(record.amount) },
+      {
+        ...record,
+        id: recordId,
+        amount: Number(record.amount),
+        created: Math.round(new Date().getTime() / 1000),
+      },
     ])
   }
   return { records, addRecord }

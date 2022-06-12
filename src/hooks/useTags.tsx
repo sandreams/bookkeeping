@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { TagItem } from 'types/money'
 import { createId } from 'src/lib/createId'
 import { useUpdate } from 'src/hooks/useUpdate'
@@ -56,10 +56,14 @@ const getTagList = () => {
 }
 const useTags = () => {
   const [tags, setTags] = useState<TagItem[]>(getTagList())
-  useUpdate(() => {
-    console.log('setItem')
-    localStorage.setItem('tagList', JSON.stringify(tags))
-  }, [tags])
+  useUpdate(
+    () => {
+      console.log('setItem')
+      localStorage.setItem('tagList', JSON.stringify(tags))
+    },
+    [tags],
+    1
+  )
   const findTag = useCallback(
     (id: string) => tags.filter((t) => t.id.toString() === id)[0],
     [tags]

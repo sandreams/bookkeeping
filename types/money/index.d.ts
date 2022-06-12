@@ -46,6 +46,7 @@ interface InputProps {
 interface RecordItem extends MoneyDataSet {
   id: number
   amount: number
+  created: number
 }
 export {
   TagItem,
