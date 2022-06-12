@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import queryString from 'query-string'
 import Layout from 'src/components/Layout'
 import Icon from 'src/components/Icon'
 import { useTags } from 'src/useTags'
-import { useTag } from 'src/useTag'
 import { TagData, TagItem } from 'types/money'
 import { stateType } from 'types/tags'
 import { svgColor, fontColor, bgColor } from 'src/helper'
@@ -102,11 +101,21 @@ const resolvePath = (path: string) => {
   const match = path.match(/(?:[a-z]+)$/g)
   return match && match.length ? match[match.length - 1] : ''
 }
-
-const Tag: React.FC = (props) => {
+const defaultTagData = {
+  id: 0,
+  tagName: '',
+  isActive: false,
+  iconName: 'default',
+}
+const Tag: React.FC = () => {
   const { findTag, createTag, updateTag, removeTag } = useTags()
   const history = useHistory()
   const { search, state, pathname } = useLocation<stateType>()
+  const [tagData, setTag] = useState<TagData>(defaultTagData)
+  const initTagData = useRef<TagData>(
+    findTag(queryString.parse(search).id as string) || {}
+  )
+  const refInput = useRef<HTMLInputElement>(null)
   useEffect(() => {
     if (['new', 'edit'].indexOf(resolvePath(pathname)) < 0) {
       // 返回上一级
@@ -115,16 +124,20 @@ const Tag: React.FC = (props) => {
     }
   }, [pathname, history])
   const mode = resolvePath(pathname)
-  const currentTag =
-    (state as TagItem) || findTag(queryString.parse(search).id as string)
-  if (mode === 'edit' && !currentTag) {
-    alert('找不到条目！')
-    history.goBack()
-  }
-  const { tagData, setTag } = useTag(currentTag)
-  const initTagData = useRef<TagData>(
-    findTag(queryString.parse(search).id as string) || {}
-  )
+  useEffect(() => {
+    const currentTag =
+      (state as TagItem) || findTag(queryString.parse(search).id as string)
+    if (mode === 'edit' && !currentTag) {
+      alert('找不到条目！')
+      history.goBack()
+    }
+    setTag(currentTag || defaultTagData)
+  }, [])
+  useEffect(() => {
+    if (refInput.current) {
+      refInput.current.focus()
+    }
+  }, [refInput])
   const showSaveBtn = useMemo(() => {
     console.log('重新计算 showBtn 的值')
     return (
@@ -133,17 +146,11 @@ const Tag: React.FC = (props) => {
       tagData.iconName !== initTagData.current.iconName
     )
   }, [tagData])
-  const refInput = useRef<HTMLInputElement>(null)
   const onBlur = () => {
     if (refInput.current) {
       setTag({ ...tagData, tagName: refInput.current.value })
     }
   }
-  useEffect(() => {
-    if (refInput.current) {
-      refInput.current.focus()
-    }
-  }, [refInput])
   const handleRemove = () => {
     if (window.confirm('是否确认删除')) {
       // 删除操作

@@ -5,13 +5,13 @@ const defaultTagData = {
   id: 0,
   tagName: '',
   isActive: false,
-  iconName: 'default'
+  iconName: 'default',
 }
-const useTag = (initData: TagItem | undefined) => {
+const useTag = (initData: TagItem | null) => {
   const [tagData, setTag] = useState<TagData>(initData || defaultTagData)
   return {
     tagData,
-    setTag
+    setTag,
   }
 }
 export { useTag }
