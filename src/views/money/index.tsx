@@ -1,5 +1,5 @@
 import Layout from 'src/components/Layout'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import CategorySection from './CategorySection'
 import TagsSection from './TagsSection'
 import NotesSection from './NotesSection'
@@ -19,14 +19,8 @@ const Money = () => {
       ...obj,
     })
   }
-  const onConfirm = () => {
+  const submit = () => {
     console.log('用户点击了确认')
-  }
-  const parentRef = useRef(null)
-  const getInputNum = () => {
-    // 获取 input 的实时输入值
-    const num = (parentRef.current as any).num()
-    console.log('num :>> ', num)
   }
   console.log('主组件渲染了')
   return (
@@ -39,7 +33,7 @@ const Money = () => {
       <InputSection
         numText={dataset.amount}
         onChange={(amount: string) => onChange({ amount })}
-        onConfirm={onConfirm}
+        onConfirm={submit}
       >
         <TagsSection
           selected={dataset.tag}

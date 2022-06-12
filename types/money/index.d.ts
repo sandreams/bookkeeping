@@ -43,6 +43,13 @@ interface InputProps {
   onChange: (amount: string) => void
   onConfirm: () => void
 }
+interface RecordItem {
+  id: number
+  category: 'expend' | 'income'
+  tag: TagItem
+  note: string
+  amount: number
+}
 export {
   TagItem,
   TagData,
@@ -53,4 +60,5 @@ export {
   CategoryProps,
   NoteProps,
   InputProps,
+  RecordItem,
 }
