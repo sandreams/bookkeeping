@@ -5,6 +5,7 @@ import TagsSection from './TagsSection'
 import NotesSection from './NotesSection'
 import InputSection from './InputSection'
 import { TagData, MoneyDataSet, CategoryData } from 'types/money'
+import { useRecords } from 'src/hooks/useRecords'
 
 const Money = () => {
   const [dataset, setDataSet] = useState<MoneyDataSet>({
@@ -13,6 +14,7 @@ const Money = () => {
     note: '',
     amount: '0',
   })
+  const { addRecord } = useRecords()
   const onChange = (obj: Partial<MoneyDataSet>) => {
     setDataSet({
       ...dataset,
@@ -21,11 +23,13 @@ const Money = () => {
   }
   const submit = () => {
     console.log('用户点击了确认')
+    addRecord({ ...dataset })
+    alert('添加成功')
   }
   console.log('主组件渲染了')
   return (
     <Layout title="记一笔">
-      <p>{JSON.stringify(dataset)}</p>
+      {/* <p>{JSON.stringify(dataset)}</p> */}
       <CategorySection
         cate={dataset.category}
         onChange={(cate: CategoryData) => onChange({ category: cate })}

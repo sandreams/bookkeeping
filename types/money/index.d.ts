@@ -43,11 +43,8 @@ interface InputProps {
   onChange: (amount: string) => void
   onConfirm: () => void
 }
-interface RecordItem {
+interface RecordItem extends MoneyDataSet {
   id: number
-  category: 'expend' | 'income'
-  tag: TagItem
-  note: string
   amount: number
 }
 export {
