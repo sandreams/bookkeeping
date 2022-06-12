@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Icon from 'src/components/Icon'
 import { fontColor, svgColor, bgColor } from 'src/helper'
 import { TagItem } from 'types/money'
-import { useTags } from 'src/useTags'
+import { useTags } from 'src/hooks/useTags'
 
 const Wrapper = styled.section`
   background: ${bgColor.white};

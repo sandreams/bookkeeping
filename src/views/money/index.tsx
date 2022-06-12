@@ -31,6 +31,7 @@ const Money = () => {
   console.log('主组件渲染了')
   return (
     <Layout title="记一笔">
+      <p>{JSON.stringify(dataset)}</p>
       <CategorySection
         cate={dataset.category}
         onChange={(cate: CategoryData) => onChange({ category: cate })}

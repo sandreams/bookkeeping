@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import TagItem from './components/TagItem'
 import { TagProps } from 'types/money'
-import { useTags } from 'src/useTags'
+import { useTags } from 'src/hooks/useTags'
 const Wrapper = styled.div`
   padding: 10px 25px;
   background-color: #fff;
