@@ -1,6 +1,6 @@
 import Layout from 'src/components/Layout'
 import { useState } from 'react'
-import { Toast } from 'zarm'
+import { Toast, Loading, Modal } from 'zarm'
 import CategorySection from './CategorySection'
 import TagsSection from './TagsSection'
 import NotesSection from './NotesSection'
@@ -8,13 +8,14 @@ import InputSection from './InputSection'
 import { TagData, MoneyDataSet, CategoryData } from 'types/money'
 import { useRecords } from 'src/hooks/useRecords'
 
+const defaultFormData = {
+  category: 'expend' as CategoryData,
+  tag: { id: 0 } as TagData,
+  note: '',
+  amount: '0',
+}
 const Money = () => {
-  const [dataset, setDataSet] = useState<MoneyDataSet>({
-    category: 'expend',
-    tag: { id: 0 },
-    note: '',
-    amount: '0',
-  })
+  const [dataset, setDataSet] = useState<MoneyDataSet>(defaultFormData)
   const { addRecord } = useRecords()
   const onChange = (obj: Partial<MoneyDataSet>) => {
     setDataSet({
@@ -24,10 +25,45 @@ const Money = () => {
   }
   const submit = () => {
     console.log('用户点击了确认')
+    Loading.show()
+    // 校验数据
+    if (
+      !dataset.amount ||
+      dataset.amount === '0' ||
+      !/^(\d|\.)+[0-9]$/.test(dataset.amount)
+    ) {
+      showErrorDislog('金额输入有误！')
+      return
+    }
+    if (!(dataset.tag && dataset.tag.id)) {
+      showErrorDislog('请选择一个分类！')
+      return
+    }
     addRecord({ ...dataset })
-    Toast.show({
-      content: '保存成功',
-      stayTime: 3000,
+      .then((res) => {
+        console.log('res :>> ', res)
+        Toast.show({
+          content: '保存成功',
+          stayTime: 2500,
+          afterClose: () => {
+            setDataSet(defaultFormData)
+          },
+        })
+      })
+      .finally(() => {
+        Loading.hide()
+      })
+  }
+  const showErrorDislog = (text: string) => {
+    const modal = Modal.alert({
+      className: 'dialog',
+      title: '错误',
+      content: text,
+      animationType: 'fade',
+      onCancel: () => {
+        modal.hide()
+        Loading.hide()
+      },
     })
   }
   console.log('主组件渲染了')

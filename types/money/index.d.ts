@@ -47,6 +47,7 @@ interface RecordItem extends MoneyDataSet {
   id: number
   amount: number
   created: number
+  updated: number
 }
 export {
   TagItem,

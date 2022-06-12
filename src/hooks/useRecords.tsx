@@ -14,18 +14,26 @@ export const useRecords = () => {
     localStorage.setItem('records', JSON.stringify(records))
   }, [records])
   const addRecord = (record: MoneyDataSet) => {
-    const arr = (records.length && records.map((r) => r.id || 0)) || [0]
-    const recordId = Math.max(...arr) + 1
-    console.log('recordId :>> ', recordId)
-    setRecords([
-      ...records,
-      {
-        ...record,
-        id: recordId,
-        amount: Number(record.amount),
-        created: Math.round(new Date().getTime() / 1000),
-      },
-    ])
+    return new Promise<RecordItem>((resolve, reject) => {
+      let new_record = null
+      try {
+        const arr = (records.length && records.map((r) => r.id || 0)) || [0]
+        const recordId = Math.max(...arr) + 1
+        const timestamp = Math.round(new Date().getTime() / 1000)
+        new_record = {
+          ...record,
+          id: recordId,
+          amount: Number(record.amount),
+          created: timestamp,
+          updated: timestamp,
+        }
+        console.log('recordId :>> ', recordId)
+        setRecords([...records, new_record])
+      } catch (error) {
+        reject(error)
+      }
+      resolve(new_record as RecordItem)
+    })
   }
   return { records, addRecord }
 }
