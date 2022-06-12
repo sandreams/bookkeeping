@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TagItem } from 'types/money'
 import { createId } from 'src/lib/createId'
+import { useUpdate } from 'src/hooks/useUpdate'
 const getBool = () => {
   return Math.random() > 0.5
 }
@@ -55,12 +56,10 @@ const getTagList = () => {
 }
 const useTags = () => {
   const [tags, setTags] = useState<TagItem[]>(getTagList())
-  useEffect(() => {
-    // 需要优化的问题：初始化时必定会执行一次
-    console.log('set store tagList')
+  useUpdate(() => {
+    console.log('setItem')
     localStorage.setItem('tagList', JSON.stringify(tags))
   }, [tags])
-
   const findTag = (id: string) => tags.filter((t) => t.id.toString() === id)[0]
   const createTag = (tag: TagItem) => {
     const newTagId = Math.max(...tags.map((t) => t.id)) + 1
