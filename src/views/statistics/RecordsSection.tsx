@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
+import { Loading, ActivityIndicator } from 'zarm'
 import styled from 'styled-components'
 import { RecordGroupedByDay } from 'types/money'
 import { useRecords } from 'src/hooks/useRecords'
@@ -83,7 +84,10 @@ const RecordsSection = () => {
   const [groupedRecords, setGroupedRecords] = useState<RecordGroupedByDay[]>([])
   useUpdate(
     () => {
-      setGroupedRecords(getGroupedByDay())
+      Loading.show({ content: <ActivityIndicator size="lg" />, stayTime: 2000 })
+      getGroupedByDay().then((data) => {
+        setGroupedRecords(data)
+      })
     },
     [getGroupedByDay],
     1
