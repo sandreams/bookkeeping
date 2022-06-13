@@ -49,6 +49,20 @@ interface RecordItem extends MoneyDataSet {
   created: number
   updated: number
 }
+interface RecordGroupedByDay {
+  date: number
+  day: string
+  month: number
+  year: number
+  dateformat: string
+  timestamp: number
+  income: number
+  expend: number
+  records: Array<RecordItem>
+}
+type RecordMap = {
+  [name: string]: RecordGroupedByDay
+}
 export {
   TagItem,
   TagData,
@@ -60,4 +74,6 @@ export {
   NoteProps,
   InputProps,
   RecordItem,
+  RecordGroupedByDay,
+  RecordMap,
 }

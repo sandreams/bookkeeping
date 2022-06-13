@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { RecordItem, MoneyDataSet } from 'types/money'
+import { useCallback, useEffect, useState } from 'react'
+import { RecordItem, MoneyDataSet, RecordGroupedByDay } from 'types/money'
 import { useUpdate } from './useUpdate'
 export const useRecords = () => {
   const [records, setRecords] = useState<RecordItem[]>([])
@@ -35,5 +35,57 @@ export const useRecords = () => {
       resolve(new_record as RecordItem)
     })
   }
-  return { records, addRecord }
+  type RecordMap = {
+    [name: string]: RecordGroupedByDay
+  }
+  const getGroupedByDay: () => Array<RecordGroupedByDay> = useCallback(() => {
+    // Expensive Calculation
+    const recordMap: RecordMap = {}
+    const daysNameArray = [
+      '周日',
+      '周一',
+      '周二',
+      '周三',
+      '周四',
+      '周五',
+      '周六',
+    ]
+    for (const record of records) {
+      const datetime = new Date(1000 * record.created)
+      const date = datetime.getDate()
+      const day = daysNameArray[datetime.getDay()]
+      const month = datetime.getMonth()
+      const year = datetime.getFullYear()
+      const dateformat = `${month}-${date}`
+      const key = `${year}-${month}-${date}`
+      if (recordMap.hasOwnProperty(key)) {
+        recordMap[key].records.push(record)
+      } else {
+        recordMap[key] = {
+          date,
+          day,
+          month,
+          year,
+          dateformat,
+          timestamp: record.created,
+          income: 0,
+          expend: 0,
+          records: [],
+        }
+      }
+    }
+    // 计算 expend 和 income 的值
+    return Object.values(recordMap).map((r) => {
+      return {
+        ...r,
+        income: r.records
+          .filter((v) => v.category === 'income')
+          .reduce((pre, cur) => pre + cur.amount, 0),
+        expend: r.records
+          .filter((v) => v.category === 'expend')
+          .reduce((pre, cur) => pre + cur.amount, 0),
+      }
+    })
+  }, [records])
+  return { records, addRecord, getGroupedByDay }
 }
