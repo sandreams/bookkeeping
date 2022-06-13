@@ -10,7 +10,6 @@ export const useUpdate = (
     count.current += 1
   })
   useEffect(() => {
-    console.log('count.current :>> ', count.current)
     if (count.current > beginCount) {
       fn()
     }

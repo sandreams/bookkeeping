@@ -58,6 +58,7 @@ interface RecordGroupedByDay {
   timestamp: number
   income: number
   expend: number
+  offset: number
   records: Array<RecordItem>
 }
 type RecordMap = {

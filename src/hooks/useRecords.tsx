@@ -40,6 +40,7 @@ export const useRecords = () => {
   }
   const getGroupedByDay: () => Array<RecordGroupedByDay> = useCallback(() => {
     // Expensive Calculation
+    console.log('exec Expensive Calculation')
     const recordMap: RecordMap = {}
     const daysNameArray = [
       '周日',
@@ -52,40 +53,45 @@ export const useRecords = () => {
     ]
     for (const record of records) {
       const datetime = new Date(1000 * record.created)
+      const now_time = Math.round(new Date().getTime() / 1000)
       const date = datetime.getDate()
       const day = daysNameArray[datetime.getDay()]
-      const month = datetime.getMonth()
+      const month = datetime.getMonth() + 1
       const year = datetime.getFullYear()
       const dateformat = `${month}-${date}`
       const key = `${year}-${month}-${date}`
+      const offset = Math.floor((now_time - record.created) / (60 * 60 * 24))
       if (recordMap.hasOwnProperty(key)) {
         recordMap[key].records.push(record)
       } else {
         recordMap[key] = {
           date,
           day,
-          month,
+          month: month,
           year,
           dateformat,
           timestamp: record.created,
           income: 0,
           expend: 0,
-          records: [],
+          offset, // 用于排序
+          records: [record],
         }
       }
     }
     // 计算 expend 和 income 的值
-    return Object.values(recordMap).map((r) => {
-      return {
-        ...r,
-        income: r.records
-          .filter((v) => v.category === 'income')
-          .reduce((pre, cur) => pre + cur.amount, 0),
-        expend: r.records
-          .filter((v) => v.category === 'expend')
-          .reduce((pre, cur) => pre + cur.amount, 0),
-      }
-    })
+    return Object.values(recordMap)
+      .sort((a, b) => a.offset - b.offset)
+      .map((r) => {
+        return {
+          ...r,
+          income: r.records
+            .filter((v) => v.category === 'income')
+            .reduce((pre, cur) => pre + cur.amount, 0),
+          expend: r.records
+            .filter((v) => v.category === 'expend')
+            .reduce((pre, cur) => pre + cur.amount, 0),
+        }
+      })
   }, [records])
   return { records, addRecord, getGroupedByDay }
 }

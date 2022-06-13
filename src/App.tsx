@@ -2,7 +2,7 @@ import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import Tags from 'src/views/tags'
 import Money from 'src/views/money/index'
-import Statistics from 'src/views/Statistics'
+import Statistics from 'src/views/statistics'
 import Tag from 'src/views/tag'
 import Icons from 'src/views/icons'
 
