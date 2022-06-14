@@ -68,7 +68,7 @@ const Money = () => {
   }
   console.log('主组件渲染了')
   return (
-    <Layout title="记一笔">
+    <Layout title="记一笔" scrollTop={1000}>
       {/* <p>{JSON.stringify(dataset)}</p> */}
       <CategorySection
         cate={dataset.category}

@@ -84,7 +84,7 @@ const RecordsSection = () => {
   const [groupedRecords, setGroupedRecords] = useState<RecordGroupedByDay[]>([])
   useUpdate(
     () => {
-      Loading.show({ content: <ActivityIndicator size="lg" />, stayTime: 2000 })
+      Loading.show({ content: <ActivityIndicator size="lg" />, stayTime: 1000 })
       getGroupedByDay().then((data) => {
         setGroupedRecords(data)
       })

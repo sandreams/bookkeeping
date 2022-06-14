@@ -195,7 +195,7 @@ const Tag: React.FC = () => {
     history.goBack()
   }
   return (
-    <Layout>
+    <Layout title="标签">
       <TopBar>
         <a
           href="#!"
