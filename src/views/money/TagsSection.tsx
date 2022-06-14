@@ -8,9 +8,11 @@ const Wrapper = styled.div`
   padding: 10px 25px;
   background-color: #fff;
   flex: 1;
+  max-height: calc(100vh - 524px);
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  overflow: auto;
 `
 const TagsSection: React.FC<TagProps> = (props) => {
   const { getCheckedTags } = useTags()

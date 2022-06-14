@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { TagItem } from 'types/money'
 import { createId } from 'src/lib/createId'
 import { useUpdate } from 'src/hooks/useUpdate'
@@ -10,43 +10,43 @@ const defaultTagList = [
     id: createId(),
     tagName: '餐饮',
     isActive: getBool(),
-    iconName: '餐饮',
+    iconName: 'icon_food',
   },
   {
     id: createId(),
     tagName: '购物',
     isActive: getBool(),
-    iconName: '购物',
+    iconName: 'icon_shopping',
   },
   {
     id: createId(),
     tagName: '交通',
     isActive: getBool(),
-    iconName: '交通',
+    iconName: 'icon_traffic',
   },
   {
     id: createId(),
     tagName: '水电费',
     isActive: getBool(),
-    iconName: '水电',
+    iconName: 'icon_daily',
   },
   {
     id: createId(),
-    tagName: '外卖',
+    tagName: '医疗',
     isActive: getBool(),
-    iconName: '外卖',
+    iconName: 'icon_medicine',
   },
   {
     id: createId(),
     tagName: '租赁',
     isActive: getBool(),
-    iconName: '租赁',
+    iconName: 'icon_houserent',
   },
   {
     id: createId(),
     tagName: '娱乐',
     isActive: getBool(),
-    iconName: '娱乐',
+    iconName: 'icon_entertainment',
   },
 ]
 const getTagList = () => {

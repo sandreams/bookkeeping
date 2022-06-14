@@ -1,7 +1,6 @@
 import Layout from 'src/components/Layout'
 import RecordsSection from './RecordsSection'
 import ChartSection from './ChartSection'
-import styled from 'styled-components'
 // const Wrapper = styled.div``
 const Statistics = () => {
   return (

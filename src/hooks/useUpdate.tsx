@@ -13,5 +13,5 @@ export const useUpdate = (
     if (count.current > beginCount) {
       fn()
     }
-  }, deps)
+  }, [...deps])
 }

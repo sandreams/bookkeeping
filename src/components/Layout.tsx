@@ -3,7 +3,8 @@ import Nav from 'src/components/Nav'
 import TopTitle from './TopTitle'
 import { bgColor } from 'src/helper'
 const Wrapper = styled.div`
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: ${bgColor.grey};

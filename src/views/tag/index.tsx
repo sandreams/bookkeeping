@@ -104,7 +104,7 @@ const resolvePath = (path: string) => {
 const defaultTagData = {
   id: 0,
   tagName: '',
-  isActive: false,
+  isActive: true,
   iconName: 'default',
 }
 const Tag: React.FC = () => {
