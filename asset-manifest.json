@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/bookkeeping/static/css/main.721da51c.css",
-    "main.js": "/bookkeeping/static/js/main.13a2287a.js",
+    "main.js": "/bookkeeping/static/js/main.971549f5.js",
     "index.html": "/bookkeeping/index.html"
   },
   "entrypoints": [
     "static/css/main.721da51c.css",
-    "static/js/main.13a2287a.js"
+    "static/js/main.971549f5.js"
   ]
 }
